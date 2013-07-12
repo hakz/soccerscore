@@ -39,10 +39,15 @@
                     <div class="well sidebar-nav" style="background-color: white">
                         <ul class="nav nav-list">
                             <li class="nav-header">Menu</li>
-                            <li class="active"><?php echo anchor('administrator/barang', 'Items', 'title="List Items"'); ?></li>
-                            <li><?php echo anchor('administrator/order', 'Orders', 'title="News title"'); ?></a></li>
-                            <li><?php echo anchor('news/local/123', 'Users', 'title="News title"'); ?></li>
+                            <li class="active"><?php echo anchor('administrator/barang', 'Input', 'title="Input"'); ?></li>
+                            <li><?php echo anchor('administrator/order', 'List', 'title="List"'); ?></li>
+                            <li><?php echo anchor('news/local/123', 'Rekap', 'title="Rekap"'); ?></li>
+                            <li><?php echo anchor('news/local/456', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
+                         <ul class="nav nav-list">
+                             <li class="nav-header"></li>
+                           <a class="btn btn-warning btn-small" href="<?php echo site_url('login/logout'); ?>"><i class="icon-off"></i> Logout</a>
+                         </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
                 <div class="span10">
