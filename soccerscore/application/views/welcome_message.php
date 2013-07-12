@@ -1,45 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Coming Soon</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link href="<?php echo base_url().'assets/'?>tools/style.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url().'assets/'?>tools/960.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
-<script type="text/javascript" src="<?php echo base_url().'assets/'?>js/cufon-yui.js"></script>
-<script type="text/javascript" src="<?php echo base_url().'assets/'?>js/Clarendon_LT_Std_700.font.js"></script>
-<script type="text/javascript">
-	Cufon.replace('h1,h3', {fontFamily: 'Clarendon LT Std', hover:true})
-</script>
-</head>
-<body>
-<div id="shim"></div>
-<div id="content">
-	<div class="logo_box"><h1>MOVIE<br/>VANUE</h1></div>          
-	<div class="main_box">
-		<h2>MovieVanue is coming soon.<br/><span>In the mean time connect with us with the information below</span></h2>
-		
-		<ul class="info">
-			<li>
-				<h3>P</h3>
-				<p>+62-857-294-86294<br/>403-926-8331</p>
-			</li>
-			<li>
-				<h3>A</h3>
-				<p>301 Clematis. Suite 3000<br/>West Palm Beach, FL 33401</p>
-			</li>
-			<li>
-				<h3>S</h3>
-				<p class="social">
-					<a href="#" class="tw"></a>
-					<a href="#" class="fb"></a>				
-					<a href="#" class="li"></a>
-				</p>
-			</li>
-		</ul>
-	</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Soccer Socre Web Application</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/css/docs.css" rel="stylesheet">
+        <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/application.js"></script>
+        <link href="<?php echo base_url(); ?>assets/css/login.css" rel="stylesheet"> 
+    </head>
 
-</body>
+    <body>
+        <!-- Part 1: Wrap all page content here -->
+        <div id="wrap">
+
+            <!-- Begin page content -->
+            <div class="container">
+                <div class="page-header">
+                    <h1>Soccer Score</h1>
+                </div>
+                <?php echo form_open('login', 'class="form-signin"'); ?> 
+                <h2 class="form-signin-heading">Log in</h2>
+                <input type="password" class="input-block-level" placeholder="Password" name="password">
+                <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+                <?php echo form_close(); ?>
+            </div>
+
+            <div id="push"></div>
+        </div>
+ <!-- created by artefact 2013 -->
+
+    </body>
+
 </html>
