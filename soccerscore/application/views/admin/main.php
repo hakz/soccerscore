@@ -40,7 +40,7 @@
                         <ul class="nav nav-list">
                             <li class="nav-header">Menu</li>
                             <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/input', 'Input', 'title="Input"'); ?></li>
-                            <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/order', 'List', 'title="List"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/list_team', 'List Team', 'title="List Team"'); ?></li>
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/barang', 'Rekap', 'title="Rekap"'); ?></li>
                             <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
