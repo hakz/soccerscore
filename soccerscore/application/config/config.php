@@ -226,6 +226,19 @@ $config['cache_path'] = '';
 */
 $config['encryption_key'] = '';
 
+
+
+/*
+  |--------------------------------------------------------------------------
+  | Encryption Key
+  |--------------------------------------------------------------------------
+  |
+  | If you use the Encryption class or the Session class you
+  | MUST set an encryption key.  See the user guide for info.
+  |
+ */
+$config['encryption_key'] = 'AplikasiWebJudiBolaByArtefact';
+
 /*
 |--------------------------------------------------------------------------
 | Session Variables
