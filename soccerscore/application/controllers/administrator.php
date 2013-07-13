@@ -130,6 +130,13 @@ class Administrator extends CI_Controller {
         $data['ctrl']['navigation1'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = '';
         $this->load->view('admin/main', $data);
     }
+    
+    public function summary(){
+        $data['ctrl']['page'] = 'summary';
+        $data['ctrl']['navigation4'] = 'active';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = '';
+        $this->load->view('admin/main', $data);
+    }
 
     public function hapus($id_tipe = '', $id_barang = '') {
         $tipe_barang = $this->m_barang->get_tipe_barang_by_id_tipe_barang($id_tipe);

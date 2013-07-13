@@ -42,7 +42,7 @@
                             <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/input', 'Input', 'title="Input"'); ?></li>
                             <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/order', 'List', 'title="List"'); ?></li>
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/barang', 'Rekap', 'title="Rekap"'); ?></li>
-                            <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('news/local/456', 'Summary', 'title="Summary"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
                          <ul class="nav nav-list">
                              <li class="nav-header"></li>
