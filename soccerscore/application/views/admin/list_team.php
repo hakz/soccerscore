@@ -26,8 +26,8 @@
 					<td><?php echo $team['team']?></td>
 					<td><a href="<?php echo $team['link']?>"><?php echo $team['link']?></a></td>
 					<td style="text-align: center"><?php echo anchor('news/local/123', '<i class="icon-pencil"></i>', 'title="Edit Item"'); ?></td>
-					<td style="text-align: center"><?php echo anchor('administrator/delete_team/'.$team['id_team'], '<i class="icon-remove"></i>', 'title="Hapus Item"'); ?></td>
-				</tr>
+					<td style="text-align: center"><a href="<?php echo site_url('administrator/delete_team/' . $team['id_team']); ?>" onclick="return confirm('Anda yakin ?');"><i class="icon-remove"></i></td>
+                                </tr>
 
 				<?php } ?>
 			</tbody>
