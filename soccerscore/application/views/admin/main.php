@@ -25,7 +25,7 @@
         </script>
 
     </head>
-    <body style="background-color: #f5f5f5; margin-top: -60px" >
+    <body style="background-color: #f5f5f5; margin-top: -60px;"  >
         <header class="jumbotron subhead" id="overview" style="background-color: white">
             <div class="container">
                 <h1>Soccer Score</h1>
@@ -39,10 +39,10 @@
                     <div class="well sidebar-nav" style="background-color: white">
                         <ul class="nav nav-list">
                             <li class="nav-header">Menu</li>
-                            <li class="active"><?php echo anchor('administrator/barang', 'Input', 'title="Input"'); ?></li>
-                            <li><?php echo anchor('administrator/order', 'List', 'title="List"'); ?></li>
-                            <li><?php echo anchor('news/local/123', 'Rekap', 'title="Rekap"'); ?></li>
-                            <li><?php echo anchor('news/local/456', 'Summary', 'title="Summary"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/input', 'Input', 'title="Input"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/order', 'List', 'title="List"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/barang', 'Rekap', 'title="Rekap"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('news/local/456', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
                          <ul class="nav nav-list">
                              <li class="nav-header"></li>
