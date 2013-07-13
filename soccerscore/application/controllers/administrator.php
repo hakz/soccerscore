@@ -175,8 +175,15 @@ class Administrator extends CI_Controller {
 		$data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = '';
 		$this -> load -> view('admin/main', $data);
 	}
+        
+        public function rekap(){
+                $data['ctrl']['page'] = 'rekap';
+		$data['ctrl']['navigation3'] = 'active';
+		$data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = '';
+		$this -> load -> view('admin/main', $data);
+        }
 
-	public function hapus($id_tipe = '', $id_barang = '') {
+        public function hapus($id_tipe = '', $id_barang = '') {
 		$tipe_barang = $this -> m_barang -> get_tipe_barang_by_id_tipe_barang($id_tipe);
 		if ($this -> m_barang -> hapus_barang($id_tipe, $id_barang)) {
 			redirect('/administrator/barang/' . $tipe_barang, 'refresh');
