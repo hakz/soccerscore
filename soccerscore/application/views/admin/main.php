@@ -45,7 +45,7 @@
                             <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
                          <ul class="nav nav-list">
-                             <li class="nav-header"></li>
+                             <hr />
                            <a class="btn btn-warning btn-small" href="<?php echo site_url('login/logout'); ?>"><i class="icon-off"></i> Logout</a>
                          </ul>
                     </div><!--/.well -->

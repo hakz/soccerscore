@@ -26,7 +26,7 @@
                 <?php echo form_open('login', 'class="form-signin"'); ?> 
                 <h2 class="form-signin-heading">Log in</h2>
                 <input type="password" class="input-block-level" placeholder="Password" name="password">
-                <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+                <button class="btn btn-large btn-primary" type="submit"><i class="icon-user"></i> Sign in</button>
                 <?php echo form_close(); ?>
             </div>
 
