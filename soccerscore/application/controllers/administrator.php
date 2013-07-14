@@ -177,11 +177,19 @@ class Administrator extends CI_Controller {
 		$this -> load -> view('admin/main', $data);
 	}
 
-	public function rekap() {
+	public function rekap($id_negara='') {
+		$data['listnegara']= $this->m_bola->getnegara();
+		
 		$data['ctrl']['page'] = 'rekap';
 		$data['ctrl']['navigation3'] = 'active';
 		$data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = '';
+		
+		$data['teams']=$this->m_bola->getdatateampernegara($id_negara);
+		
 		$this -> load -> view('admin/main', $data);
+		
+		
+		
 	}
 
 	public function hapus($id_tipe = '', $id_barang = '') {

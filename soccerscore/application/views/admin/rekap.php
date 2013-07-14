@@ -1,18 +1,18 @@
+<?php
+echo '<pre>';
+echo print_r($teams);
+echo '</pre>';
+?>
 <div class="tabbable">
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="<?php echo base_url() . 'administrator/barang/movie' ?>" data-toggle="tab">Group1</a>
+        	<?php foreach ($listnegara as $negara) { ?>
+				
+            <li class="">
+                <a href="<?php echo base_url() . 'administrator/barang/movie' ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
             </li>
-            <li>
-                <a href="<?php echo base_url() . 'administrator/barang/game' ?>" data-toggle="tab">Group2</a>
-            </li>
-            <li>
-                <a href="<?php echo base_url() . 'administrator/barang/software' ?>" data-toggle="tab">Group3</a>
-            </li>
-            <li>
-                <a href="<?php echo base_url() . 'administrator/barang/apk' ?>" data-toggle="tab">Group4</a>
-            </li>
+            <?php } ?>
+ 
         </ul>
     </div>
     <table class="table table-bordered table-hover">
@@ -31,47 +31,21 @@
         </thead>
         <tbody>
             <!-- start -->
-            <tr>
-                <td rowspan="2">1</td>
-                <td rowspan="2">Chelsea</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
+            <?php foreach ($teams as $key => $team) { ?>
+                <tr>
+                <td rowspan="2"><?php echo ++$key?></td>
+                <td rowspan="2"><?php echo $team['team']?></td>
+                <?php foreach ($team['rekap'] as $key => $rekap) { ?>
+                	<td><?php echo $rekap['date'] ?></td>
+                <?php } ?>
             </tr>
             <tr>
-                <td>E</td>
-                <td>O</td>
-                <td>E</td>
-                <td>O</td>
-                <td>E</td>
-                <td>E</td>
-                <td>E</td>
+                <?php foreach ($team['rekap'] as $key => $rekap) { ?>
+                	<td><?php echo (($rekap['score1']+$rekap['score2'])%2==0) ? 'O' : 'E' ; ?></td>
+                <?php } ?>
             </tr>
-            <!-- end one club -->
-            <tr>
-                <td rowspan="2">2</td>
-                <td rowspan="2">Manchester United</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-                <td>7/14/2013</td>
-            </tr>
-            <tr>
-                <td>E</td>
-                <td>O</td>
-                <td>E</td>
-                <td>O</td>
-                <td>E</td>
-                <td>E</td>
-                <td>E</td>
-            </tr>
+            <?php }?>
+            
         </tbody>
     </table>
 </div>

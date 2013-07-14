@@ -59,5 +59,39 @@ class m_bola extends CI_Model {
 		$this -> db -> trans_complete();
 		return $this -> db -> trans_status();
 	}
+	
+	function getnegara()
+	{
+		return $this->db->get('negara')->result_array();
+	}
+	
+	function getteambynegara($id_negara=0)
+	{
+		$this->db->where('id_negara',$id_negara);
+		return $this->db->get('team')->result_array();
+	}
+	
+	function getdatateampernegara($id_negara=0)
+	{
+		$listteam=$this->getteambynegara($id_negara);
+		$data=null;
+		$i=0;
+		foreach($listteam as $team)
+		{
+			$data[$i]['id_team']=$team['id_team'];
+			$data[$i]['team']=$team['team'];
+			$data[$i]['rekap']=array_reverse($this->rekapteam($team['id_team']));
+			$i++;
+		}
+		return $data;
+	}
+	function rekapteam($id_team='')
+	{
+		$this->db->where('id_team',$id_team);
+		$this->db->where('status_tanding', '1');
+		$this->db->order_by('date', 'desc');
+		$this->db->limit(7);
+		return $this->db->get('dom')->result_array();
+	}
 }
 ?>
