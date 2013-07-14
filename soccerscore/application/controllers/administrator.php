@@ -176,20 +176,110 @@ class Administrator extends CI_Controller {
 		$data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = '';
 		$this -> load -> view('admin/main', $data);
 	}
-        
-        public function rekap(){
-                $data['ctrl']['page'] = 'rekap';
+
+	public function rekap() {
+		$data['ctrl']['page'] = 'rekap';
 		$data['ctrl']['navigation3'] = 'active';
 		$data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = '';
 		$this -> load -> view('admin/main', $data);
-        }
+	}
 
-        public function hapus($id_tipe = '', $id_barang = '') {
+	public function hapus($id_tipe = '', $id_barang = '') {
 		$tipe_barang = $this -> m_barang -> get_tipe_barang_by_id_tipe_barang($id_tipe);
 		if ($this -> m_barang -> hapus_barang($id_tipe, $id_barang)) {
 			redirect('/administrator/barang/' . $tipe_barang, 'refresh');
 		} else
 			redirect('/administrator/barang/' . $tipe_barang, 'refresh');
+	}
+
+	public function dograb() {
+		//$url='http://id.soccerway.com/teams/england/manchester-city-football-club/676/matches/';
+		$url = $this -> input -> get('link');
+		$id_team = $this -> input -> get('id_team');
+		$dom = $this -> domScore($url, $id_team);
+		$this -> insertDom($dom);
+		//echo '<pre>';
+		//echo print_r($dom);
+		//echo '</pre>';
+				
+		redirect('/administrator/list_team/', 'refresh');
+	}
+
+	public function domScore($url = '', $id_team = 0) {
+
+		$this -> load -> library('simple_html_dom');
+		$html = file_get_html($url);
+		$row = $html -> find('tr[class=match]');
+
+		$match = null;
+		$i = 0;
+		foreach ($row as $r) {
+			$comp = $r -> find('td[class=competition]');
+
+			if ($comp[0] -> plaintext != 'CLF') {
+				$date = $r -> find('td[class=full-date]');
+				$score = $r -> find('td[class=score-time score]');
+				$time = $r -> find('td[class=score-time status]');
+				$comp = $r -> find('td[class=competition]');
+				$status = 1;
+				if (!empty($score)) {
+					$score = $score[0] -> plaintext;
+					$score_ex = explode('-', $score);
+					$score1 = trim($score_ex[0]);
+					$score2 = trim($score_ex[1]);
+				} else {
+					$score = '';
+					$score1 = '';
+					$score2 = '';
+				}
+				if (!empty($time)) {
+					$status = 0;
+
+					$time = $time[0] -> plaintext;
+				} else {
+					$time = '';
+				}
+
+				$match[$i]['date'] = $this -> dmytoymd(trim($date[0] -> plaintext));
+				$match[$i]['competition'] = trim($comp[0] -> plaintext);
+				$match[$i]['score1'] = preg_replace("/[^0-9]/", "", trim($score1));
+				$match[$i]['score2'] = preg_replace("/[^0-9]/", "", trim($score2));
+				$match[$i]['extratime'] = (strpos($score, 'E')) ? 1 : 0;
+				;
+				$match[$i]['id_team'] = $id_team;
+				$match[$i]['time'] = str_replace(' ', '', str_replace('-', '', trim($time)));
+				$match[$i]['status_tanding'] = trim($status);
+
+				$i++;
+
+			}
+
+		}
+		//echo '<pre>';
+		//echo print_r($match);
+		//echo '</pre>';
+
+		//insert dom
+		return $match;
+	}
+
+	public function insertDom($data) {
+
+		$this -> load -> model('m_dom');
+		foreach ($data as $m) {
+			if ($this -> m_dom -> cekdataisexist($m['id_team'], $m['date'])) {
+				//echo 'update', $this -> m_dom -> updatedom($m);
+			} else {
+				//echo 'insert ' . $this -> m_dom -> insertdom($m);
+			}
+		}
+		
+	}
+
+	public function dmytoymd($date = '') {
+		$ex_date = explode('/', $date);
+		$datebaru = '20' . $ex_date[2] . '-' . $ex_date[1] . '-' . $ex_date[0];
+		return $datebaru;
 	}
 
 }
