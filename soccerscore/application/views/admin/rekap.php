@@ -7,8 +7,9 @@
     <div class="container">
         <ul class="nav nav-tabs">
         	<?php foreach ($listnegara as $negara) { ?>
-				
+                
             <li class="">
+                
                 <a href="<?php echo base_url() . 'index.php/administrator/rekap/'.$negara['id_negara'] ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
             </li>
             <?php } ?>
