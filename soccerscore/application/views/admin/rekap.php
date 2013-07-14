@@ -1,7 +1,7 @@
 <?php
-echo '<pre>';
-echo print_r($teams);
-echo '</pre>';
+//echo '<pre>';
+//echo print_r($teams);
+//echo '</pre>';
 ?>
 <div class="tabbable">
     <div class="container">
@@ -9,7 +9,7 @@ echo '</pre>';
         	<?php foreach ($listnegara as $negara) { ?>
 				
             <li class="">
-                <a href="<?php echo base_url() . 'administrator/barang/movie' ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
+                <a href="<?php echo base_url() . 'index.php/administrator/rekap/'.$negara['id_negara'] ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
             </li>
             <?php } ?>
  
@@ -20,13 +20,7 @@ echo '</pre>';
             <tr>
                 <th>No</th>
                 <th>Team</th>
-                <th>Match 1</th>
-                <th>Match 2</th>
-                <th>Match 3</th>
-                <th>Match 4</th>
-                <th>Match 5</th>
-                <th>Match 6</th>
-                <th>Last Match</th>
+                
             </tr>
         </thead>
         <tbody>

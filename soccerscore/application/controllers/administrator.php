@@ -177,7 +177,7 @@ class Administrator extends CI_Controller {
 		$this -> load -> view('admin/main', $data);
 	}
 
-	public function rekap($id_negara='') {
+	public function rekap($id_negara=1) {
 		$data['listnegara']= $this->m_bola->getnegara();
 		
 		$data['ctrl']['page'] = 'rekap';
@@ -206,11 +206,11 @@ class Administrator extends CI_Controller {
 		$id_team = $this -> input -> get('id_team');
 		$dom = $this -> domScore($url, $id_team);
 		$this -> insertDom($dom);
-		//echo '<pre>';
-		//echo print_r($dom);
-		//echo '</pre>';
+		echo '<pre>';
+		echo print_r($dom);
+		echo '</pre>';
 				
-		redirect('/administrator/list_team/', 'refresh');
+		//redirect('/administrator/list_team/', 'refresh');
 	}
 
 	public function domScore($url = '', $id_team = 0) {
@@ -275,10 +275,11 @@ class Administrator extends CI_Controller {
 
 		$this -> load -> model('m_dom');
 		foreach ($data as $m) {
+			
 			if ($this -> m_dom -> cekdataisexist($m['id_team'], $m['date'])) {
-				//echo 'update', $this -> m_dom -> updatedom($m);
+				echo 'update', $this -> m_dom -> updatedom($m);
 			} else {
-				//echo 'insert ' . $this -> m_dom -> insertdom($m);
+				echo 'insert ' . $this -> m_dom -> insertdom($m);
 			}
 		}
 		
