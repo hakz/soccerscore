@@ -13,6 +13,7 @@ class Administrator extends CI_Controller {
 	}
 
 	public function index() {
+		//tes update
 		$data['ctrl']['page'] = 'blank';
 		$data['ctrl']['navigation1'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = '';
 		$this -> load -> view('admin/main', $data);
