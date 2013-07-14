@@ -18,10 +18,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($list_team as $team) { ?>
+				<?php foreach ($list_team as $key=>$team) { ?>
 					
 				<tr>
-					<td style="text-align: center">1</td>
+					<td style="text-align: center"><?php echo ++$key ?></td>
 					<td><?php echo $team['negara']?></td>
 					<td><?php echo $team['team']?></td>
 					<td><a href="<?php echo $team['link']?>"><?php echo $team['link']?></a></td>
