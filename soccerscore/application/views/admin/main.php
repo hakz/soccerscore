@@ -14,14 +14,13 @@
         <link href="<?php echo base_url(); ?>assets/css/docs.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/datepicker.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/google-code-prettify/prettify.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/css/acc-wizard.min.css" rel="stylesheet">
         <script src="<?php echo base_url(); ?>assets/js/bootstrap-min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.1.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/bootstrap-collapse.js"></script>
         <script>
-            $(function() {
-                window.prettyPrint && prettyPrint();
-                $('#awal').datepicker();
-            });
+       $(".collapse").collapse()
         </script>
 
     </head>
@@ -44,10 +43,10 @@
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/rekap', 'Rekap', 'title="Rekap"'); ?></li>
                             <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
-                         <ul class="nav nav-list">
-                             <hr />
-                           <a class="btn btn-warning btn-small" href="<?php echo site_url('login/logout'); ?>"><i class="icon-off"></i> Logout</a>
-                         </ul>
+                        <ul class="nav nav-list">
+                            <hr />
+                            <a class="btn btn-warning btn-small" href="<?php echo site_url('login/logout'); ?>"><i class="icon-off"></i> Logout</a>
+                        </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
                 <div class="span10">
