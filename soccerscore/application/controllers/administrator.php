@@ -25,7 +25,7 @@ class Administrator extends CI_Controller {
     public function input() {
         $data['ctrl']['page'] = 'input';
         $data['ctrl']['navigation1'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
 
         $this->load->view('admin/main', $data);
     }
@@ -53,7 +53,7 @@ class Administrator extends CI_Controller {
     	$order_by=$this->input->get('order');
         $data['ctrl']['page'] = 'list_team';
         $data['ctrl']['navigation2'] = 'active';
-        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] ='';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
         $data['list_team'] = $this->m_bola->list_team($order_by);
         $this->load->view('admin/main', $data);
 		
@@ -70,7 +70,7 @@ class Administrator extends CI_Controller {
 	{
 		$data['ctrl']['navigation5'] = 'active';
 		$data['ctrl']['page'] = 'extratimelist';
-        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] ='';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
 		$this->load->view('admin/main',$data);
 	}
 	
@@ -185,7 +185,14 @@ class Administrator extends CI_Controller {
     public function summary() {
         $data['ctrl']['page'] = 'summary';
         $data['ctrl']['navigation4'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+        $this->load->view('admin/main', $data);
+    }
+	
+	public function summaryou() {
+        $data['ctrl']['page'] = 'summaryou';
+        $data['ctrl']['navigation7'] = 'active';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation4'] ='';
         $this->load->view('admin/main', $data);
     }
 
@@ -194,7 +201,26 @@ class Administrator extends CI_Controller {
 
         $data['ctrl']['page'] = 'rekap';
         $data['ctrl']['navigation3'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+
+        $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
+		$this->load->library('pagination');
+
+		$config['base_url'] = base_url('index.php/administrator/rekap/');
+		$config['total_rows'] = 200;
+		$config['per_page'] = 20; 
+		 $this->pagination->initialize($config);
+		 $data['halaman'] = $this->pagination->create_links();
+		
+        $this->load->view('admin/main', $data);
+    }
+
+	public function rekapou($id_negara = 1) {
+        $data['listnegara'] = $this->m_bola->getnegara();
+
+        $data['ctrl']['page'] = 'rekapou';
+        $data['ctrl']['navigation6'] = 'active';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation3']= $data['ctrl']['navigation7'] ='';
 
         $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
 		$this->load->library('pagination');
