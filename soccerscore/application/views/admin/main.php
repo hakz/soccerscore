@@ -40,6 +40,7 @@
                             <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/input', 'Input', 'title="Input"'); ?></li>
                             <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/list_team', 'List Team', 'title="List Team"'); ?></li>
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/rekap', 'Rekap', 'title="Rekap"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation5']; ?>"><?php echo anchor('administrator/extratimelist', 'Extra Time', 'title="Extra Time List"'); ?></li>
                             <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary', 'Summary', 'title="Summary"'); ?></li>
                         </ul>
                         <ul class="nav nav-list">

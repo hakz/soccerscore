@@ -40,7 +40,17 @@
             </tr>
             <tr>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php echo (($rekap['score1']+$rekap['score2'])%2==0) ? 'O' : 'E' ; ?></td>
+                	<td><?php
+                	if ($rekap['extratime']==0) {
+                		echo (($rekap['score1']+$rekap['score2'])%2==0) ? 'O' : 'E' ; 	
+					} else {
+						echo '<a href="'.base_url('index.php/administrator/extratimelist').'">';
+						echo (($rekap['score1']+$rekap['score2'])%2==0) ? 'O' : 'E' ; 
+						echo '</a>';
+					}
+					
+                	
+                	?></td>
                 <?php } ?>
             </tr>
             <?php }?>
@@ -48,3 +58,4 @@
         </tbody>
     </table>
 </div>
+<?php echo $halaman; ?>
