@@ -34,7 +34,7 @@
                 	<td><?php 
                 	$source = $rekap['date'];
 					$date = new DateTime($source);
-                	echo $date->format('m/d'); 
+                	echo $date->format('d/m'); 
                 	?></td>
                 <?php } ?>
             </tr>
