@@ -10,8 +10,8 @@
 			<thead>
 				<tr>
 					<th style="" class="span1">No</th>
-					<th style="" class="span2">Negara</th>
-					<th style="" class="span2">Team</th>
+					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team?order=negara');?>">Negara</a></th>
+					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team?order=team');?>">Team</a></th>
 					<th style="" class="span5">Link</th>
 					<th style="" class="span1">Syncronize</th>
 					<th style="" class="span1">Delete</th>

@@ -7,7 +7,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Soccer Score Web Application</title>
+        <title>MySocStats</title>
         <!-- Le styles -->
         <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css" rel="stylesheet"> 
@@ -26,7 +26,7 @@
     <body style="background-color: #f5f5f5; margin-top: -60px;"  >
         <header class="jumbotron subhead" id="overview" style="background-color: white">
             <div class="container">
-                <h1>Soccer Score</h1>
+                <h1>MySocStats</h1>
                 <p class="lead">One stop soccer score web application</p>
             </div>
         </header>

@@ -31,7 +31,11 @@
                 <td rowspan="2"><?php echo ++$key?></td>
                 <td rowspan="2"><?php echo $team['team']?></td>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php echo $rekap['date'] ?></td>
+                	<td><?php 
+                	$source = $rekap['date'];
+					$date = new DateTime($source);
+                	echo $date->format('m/d'); 
+                	?></td>
                 <?php } ?>
             </tr>
             <tr>

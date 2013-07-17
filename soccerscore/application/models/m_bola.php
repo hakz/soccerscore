@@ -45,10 +45,14 @@ class m_bola extends CI_Model {
 		return $this -> db -> trans_status();
 	}
 	
-	function list_team()
+	function list_team($order_by='id_team')
 	{
+		if ($order_by=='') {
+			$order_by='id_team';
+		}
 		$this->db->select('*');
 		$this->db->join('negara','team.id_negara=negara.id_negara');
+		$this->db->order_by($order_by, 'asc');
 		return $this->db->get('team')->result_array();
 	}
 
@@ -90,7 +94,7 @@ class m_bola extends CI_Model {
 		$this->db->where('id_team',$id_team);
 		$this->db->where('status_tanding', '1');
 		$this->db->order_by('date', 'desc');
-		$this->db->limit(7);
+		$this->db->limit(15);
 		return $this->db->get('dom')->result_array();
 	}
 }

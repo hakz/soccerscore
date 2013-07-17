@@ -50,10 +50,11 @@ class Administrator extends CI_Controller {
     }
 
     public function list_team() {
+    	$order_by=$this->input->get('order');
         $data['ctrl']['page'] = 'list_team';
         $data['ctrl']['navigation2'] = 'active';
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = '';
-        $data['list_team'] = $this->m_bola->list_team();
+        $data['list_team'] = $this->m_bola->list_team($order_by);
         $this->load->view('admin/main', $data);
     }
 
