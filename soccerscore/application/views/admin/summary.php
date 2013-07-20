@@ -1,3 +1,9 @@
+<?php 
+echo '<pre>';
+print_r($summary);
+echo '</pre>';
+?>
+
 <div class="row-fluid">
     <div class="accordion" id="accordion2">
         <div class="accordion-group">

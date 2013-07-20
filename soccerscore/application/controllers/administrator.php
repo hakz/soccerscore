@@ -186,8 +186,10 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'summary';
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+        $data['summary']=$this->m_bola->getsummary();
         $this->load->view('admin/main', $data);
-    }
+    
+	}
 	
 	public function summaryou() {
         $data['ctrl']['page'] = 'summaryou';
@@ -206,12 +208,13 @@ class Administrator extends CI_Controller {
         $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
 		$this->load->library('pagination');
 
-		$config['base_url'] = base_url('index.php/administrator/rekap/');
-		$config['total_rows'] = 200;
-		$config['per_page'] = 20; 
-		 $this->pagination->initialize($config);
-		 $data['halaman'] = $this->pagination->create_links();
-		
+		//$config['base_url'] = base_url('index.php/administrator/rekap/');
+		//$config['total_rows'] = 200;
+		//$config['per_page'] = 20;
+		//$config['use_page_numbers'] = FALSE;
+		 //$this->pagination->initialize($config);
+		 //$data['halaman'] = $this->pagination->create_links();
+		$data['halaman'] ='';
         $this->load->view('admin/main', $data);
     }
 
@@ -225,12 +228,12 @@ class Administrator extends CI_Controller {
         $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
 		$this->load->library('pagination');
 
-		$config['base_url'] = base_url('index.php/administrator/rekap/');
-		$config['total_rows'] = 200;
-		$config['per_page'] = 20; 
-		 $this->pagination->initialize($config);
-		 $data['halaman'] = $this->pagination->create_links();
-		
+		//$config['base_url'] = base_url('index.php/administrator/rekap/');
+		//$config['total_rows'] = 200;
+		//$config['per_page'] = 20; 
+		// $this->pagination->initialize($config);
+		// $data['halaman'] = $this->pagination->create_links();
+		$data['halaman'] ='';
         $this->load->view('admin/main', $data);
     }
 
