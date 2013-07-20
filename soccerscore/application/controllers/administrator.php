@@ -294,7 +294,7 @@ class Administrator extends CI_Controller {
                 $match[$i]['id_team'] = $id_team;
                 $match[$i]['time'] = str_replace(' ', '', str_replace('-', '', trim($time)));
                 $match[$i]['status_tanding'] = trim($status);
-
+                $match[$i]['result']= $this->result($match[$i]['score1'], $match[$i]['score2']);
                 $i++;
             }
         }
@@ -323,7 +323,16 @@ class Administrator extends CI_Controller {
         $datebaru = '20' . $ex_date[2] . '-' . $ex_date[1] . '-' . $ex_date[0];
         return $datebaru;
     }
-
+    
+    public function result($score1 = '', $score2 = ''){
+        if(($score1+$score2)<2.5){
+            return 'U';
+        }else if(($score1+$score2)%2==0){
+            return 'E';
+        }else{
+            return 'O';
+        }
+    }
 }
 
 /* End of file welcome.php */
