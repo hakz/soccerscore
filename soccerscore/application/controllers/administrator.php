@@ -18,14 +18,14 @@ class Administrator extends CI_Controller {
     public function index() {
         //tes update
         $data['ctrl']['page'] = 'blank';
-        $data['ctrl']['navigation1'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] =$data['ctrl']['navigation5'] = $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] = '';
+        $data['ctrl']['navigation1'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $this->load->view('admin/main', $data);
     }
 
     public function input() {
         $data['ctrl']['page'] = 'input';
         $data['ctrl']['navigation1'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
 
         $this->load->view('admin/main', $data);
     }
@@ -50,13 +50,12 @@ class Administrator extends CI_Controller {
     }
 
     public function list_team() {
-    	$order_by=$this->input->get('order');
+        $order_by = $this->input->get('order');
         $data['ctrl']['page'] = 'list_team';
         $data['ctrl']['navigation2'] = 'active';
-        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['list_team'] = $this->m_bola->list_team($order_by);
         $this->load->view('admin/main', $data);
-		
     }
 
     public function delete_team($id_team = 0) {
@@ -65,15 +64,16 @@ class Administrator extends CI_Controller {
         } else
             echo 'gagal delete team';
     }
-	
-	public function extratimelist()
-	{
-		$data['ctrl']['navigation5'] = 'active';
-		$data['ctrl']['page'] = 'extratimelist';
-        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
-		$this->load->view('admin/main',$data);
-	}
-	
+
+    public function extratimelist() {
+        $order_by = $this->input->get('order');
+        $data['ctrl']['navigation5'] = 'active';
+        $data['ctrl']['page'] = 'extratimelist';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+        $data['extratime'] = $this->m_bola->extratime_list($order_by);
+        $this->load->view('admin/main', $data);
+    }
+
     public function barang($uri1 = 'movie', $itm = 0) {
         //pagination config
         $jml_row = $this->db->get('barang');
@@ -173,28 +173,20 @@ class Administrator extends CI_Controller {
         }
     }
 
-    public function order($uri1 = 'waiting') {
-        $page = 'order-' . $uri1;
+    public function summary($id_negara = 1) {
+        $data['listnegara'] = $this->m_bola->getnegara();
 
-        $data['ctrl']['page'] = $page;
-        $data['ctrl']['navigation2'] = 'active';
-        $data['ctrl']['navigation1'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = '';
+        $data['ctrl']['page'] = 'summary';
+        $data['ctrl']['navigation4'] = 'active';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+        $data['summary'] = $this->m_bola->getsummary();
         $this->load->view('admin/main', $data);
     }
 
-    public function summary() {
-        $data['ctrl']['page'] = 'summary';
-        $data['ctrl']['navigation4'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
-        $data['summary']=$this->m_bola->getsummary();
-        $this->load->view('admin/main', $data);
-    
-	}
-	
-	public function summaryou() {
+    public function summaryou() {
         $data['ctrl']['page'] = 'summaryou';
         $data['ctrl']['navigation7'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation4'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation4'] = '';
         $this->load->view('admin/main', $data);
     }
 
@@ -203,37 +195,37 @@ class Administrator extends CI_Controller {
 
         $data['ctrl']['page'] = 'rekap';
         $data['ctrl']['navigation3'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation6']= $data['ctrl']['navigation7'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
 
         $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
-		$this->load->library('pagination');
+        $this->load->library('pagination');
 
-		//$config['base_url'] = base_url('index.php/administrator/rekap/');
-		//$config['total_rows'] = 200;
-		//$config['per_page'] = 20;
-		//$config['use_page_numbers'] = FALSE;
-		 //$this->pagination->initialize($config);
-		 //$data['halaman'] = $this->pagination->create_links();
-		$data['halaman'] ='';
+        //$config['base_url'] = base_url('index.php/administrator/rekap/');
+        //$config['total_rows'] = 200;
+        //$config['per_page'] = 20;
+        //$config['use_page_numbers'] = FALSE;
+        //$this->pagination->initialize($config);
+        //$data['halaman'] = $this->pagination->create_links();
+        $data['halaman'] = '';
         $this->load->view('admin/main', $data);
     }
 
-	public function rekapou($id_negara = 1) {
+    public function rekapou($id_negara = 1) {
         $data['listnegara'] = $this->m_bola->getnegara();
 
         $data['ctrl']['page'] = 'rekapou';
         $data['ctrl']['navigation6'] = 'active';
-        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5']= $data['ctrl']['navigation3']= $data['ctrl']['navigation7'] ='';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation7'] = '';
 
         $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
-		$this->load->library('pagination');
+        $this->load->library('pagination');
 
-		//$config['base_url'] = base_url('index.php/administrator/rekap/');
-		//$config['total_rows'] = 200;
-		//$config['per_page'] = 20; 
-		// $this->pagination->initialize($config);
-		// $data['halaman'] = $this->pagination->create_links();
-		$data['halaman'] ='';
+        //$config['base_url'] = base_url('index.php/administrator/rekap/');
+        //$config['total_rows'] = 200;
+        //$config['per_page'] = 20; 
+        // $this->pagination->initialize($config);
+        // $data['halaman'] = $this->pagination->create_links();
+        $data['halaman'] = '';
         $this->load->view('admin/main', $data);
     }
 
