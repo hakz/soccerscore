@@ -179,10 +179,13 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'summary';
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-        $data['summary'] = $this->m_bola->getsummary();
+        $data['summary'] = $this->m_bola->getallsummary();
+		//$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
+		
         $this->load->view('admin/main', $data);
     }
 
+	
     public function summaryou() {
         $data['ctrl']['page'] = 'summaryou';
         $data['ctrl']['navigation7'] = 'active';
@@ -309,7 +312,7 @@ class Administrator extends CI_Controller {
 
         $this->load->model('m_dom');
         foreach ($data as $m) {
-
+			
             if ($this->m_dom->cekdataisexist($m['id_team'], $m['date'])) {
                 echo 'update', $this->m_dom->updatedom($m);
             } else {
