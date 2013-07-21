@@ -32,7 +32,7 @@
 				<?php } ?>
 				<tr>
 					<td colspan="4"></td>
-					<td><?php echo anchor('administrator/dograb?link='.$team['link'].'&id_team='.$team['id_team'], 'Syncronize All !!', 'title="Syncronize All"'); ?></td>
+					<td><?php echo anchor('administrator/syncronizrall', 'Syncronize All !!', 'title="Syncronize All"'); ?></td>
 					<td></td>
 				</tr>
 			</tbody>

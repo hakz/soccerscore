@@ -75,11 +75,17 @@ class m_bola extends CI_Model {
     function getnegara() {
         return $this->db->get('negara')->result_array();
     }
+	
+	function getteam() {
+        return $this->db->get('team')->result_array();
+    }
 
     function getteambynegara($id_negara = 0) {
         $this->db->where('id_negara', $id_negara);
         return $this->db->get('team')->result_array();
     }
+
+	
 
     function getdatateampernegara($id_negara = 0) {
         $listteam = $this->getteambynegara($id_negara);

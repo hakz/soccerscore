@@ -1,7 +1,7 @@
 <?php 
-echo '<pre>';
-print_r($summary);
-echo '</pre>';
+//echo '<pre>';
+//print_r($summary);
+//echo '</pre>';
 
 ?>
 

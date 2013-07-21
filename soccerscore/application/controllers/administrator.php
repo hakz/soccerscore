@@ -246,11 +246,11 @@ class Administrator extends CI_Controller {
         $id_team = $this->input->get('id_team');
         $dom = $this->domScore($url, $id_team);
         $this->insertDom($dom);
-        echo '<pre>';
-        echo print_r($dom);
-        echo '</pre>';
+        //echo '<pre>';
+        //echo print_r($dom);
+        //echo '</pre>';
 
-        //redirect('/administrator/list_team/', 'refresh');
+        redirect('/administrator/list_team/', 'refresh');
     }
 
     public function domScore($url = '', $id_team = 0) {
@@ -297,7 +297,8 @@ class Administrator extends CI_Controller {
                 $match[$i]['id_team'] = $id_team;
                 $match[$i]['time'] = str_replace(' ', '', str_replace('-', '', trim($time)));
                 $match[$i]['status_tanding'] = trim($status);
-                $match[$i]['result']= $this->result($match[$i]['score1'], $match[$i]['score2']);
+                $match[$i]['result']= $this->result($match[$i]['score1'], $match[$i]['score2'],1);
+				$match[$i]['result2']= $this->result($match[$i]['score1'], $match[$i]['score2'],2);
                 $i++;
             }
         }
@@ -327,15 +328,30 @@ class Administrator extends CI_Controller {
         return $datebaru;
     }
     
-    public function result($score1 = '', $score2 = ''){
-        if(($score1+$score2)<2.5){
-            return 'U';
-        }else if(($score1+$score2)%2==0){
-            return 'E';
-        }else{
-            return 'O';
-        }
+    public function result($score1 = '', $score2 = '', $tipe=1){
+    	if($tipe==1)
+    	{
+    		if(($score1+$score2)%2==0) return 'E';
+			else return 'O';
+		}else
+		{
+			if(($score1+$score2)<2.5) return 'U';
+			else return 'O';
+		}
     }
+	
+	public function syncronizrall()
+	{
+		$team= $this->m_bola->getteam();
+		foreach ($team as $key => $t) {
+			$url = $t['link'];
+	        $id_team = $t['id_team'];
+	        $dom = $this->domScore($url, $id_team);
+	        $this->insertDom($dom);
+		}
+		 redirect('/administrator/list_team/', 'refresh');
+	}
+	
 }
 
 /* End of file welcome.php */
