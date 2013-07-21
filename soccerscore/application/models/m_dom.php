@@ -19,6 +19,16 @@ class m_dom extends CI_Model {
 		return $this -> db -> trans_status();
 	}
 	
+	function cekedited($data = '') {
+		$this->db->where('id_team', $data['id_team']);
+		$this->db->where('date', $data['date']);
+		$this->db->where('edited', 1);
+		$res=$this->db->get('dom'); 
+		if ($res->num_rows()>0) {
+			return 1;
+		}else return 0;
+	}
+	
 	function cekdataisexist($id_team='', $date='')
 	{
 		$this->db->where('id_team', $id_team);

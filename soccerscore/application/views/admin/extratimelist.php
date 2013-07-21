@@ -11,10 +11,11 @@
                     <th style="" class="span2">Tanggal</th>
                     <th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/extratimelist?order=negara'); ?>">Negara</a></th>
                     <th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/extratimelist?order=team'); ?>">Team</a></th>
-                    <th style="" class="span2">score 1</th>
-                    <th style="" class="span2">score 2</th>
-                    <th style="" class="span1">Hasil</th>
-                    <th style="" class="span2">Action O/U/E</th>
+                    <th style="" class="span1">score 1</th>
+                    <th style="" class="span1">score 2</th>
+                    <th style="" class="span1">Result 1</th>
+                    <th style="" class="span1">Result 2</th>
+                    <th style="" class="span1">Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,16 +27,12 @@
                         <td><?php echo $extra['team'] ?></td>
                         <td><?php echo $extra['score1'] ?></td>
                         <td><?php echo $extra['score2'] ?></td>
-                        <td> <?php
-                if ($extra['extratime'] == 1) {
-                    echo (($extra['score1'] + $extra['score2']) % 2 == 0) ? 'O' : 'E';
-                } else {
-                    echo '<a href="' . base_url('index.php/administrator/extratimelist') . '">';
-                    echo (($extra['score1'] + $rekap['extra']) % 2 == 0) ? 'O' : 'E';
-                    echo '</a>';
-                }
-                    ?></td>
-                        <td></td>
+                        <?php echo form_open('administrator/edit_dom', ''); ?>
+                        <td><input class="span8" type="text" name="result1" value="<?php echo $extra['result'] ?>"/></td>
+                        <td><input class="span8" type="text" name="result2" value="<?php echo $extra['result2'] ?>"/></td>
+						<input type="hidden" name="id_dom" value="<?php echo $extra['id_dom'] ?>" id="id_dom"/>
+                   		<td><button class="btn" type="submit" ><i class="icon-pencil"></i></button>	</td>
+                    	<?php echo form_close(); ?>
                     </tr>
 <?php } ?>
             </tbody>

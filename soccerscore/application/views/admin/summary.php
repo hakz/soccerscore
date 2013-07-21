@@ -1,6 +1,6 @@
 <?php 
 //echo '<pre>';
-//print_r($summary);
+//print_r($tanggal);
 //echo '</pre>';
 
 ?>
@@ -16,15 +16,13 @@
                         <thead>
                             <tr>
                                 <td><b>No</b></td>
-                                <td><b>Date 1(today)</b></td>
-                                <td><b>Date 2(tomorrow)</b></td>
-                                <td><b>Date 3(lusa)</b></td>
-                                <td><b>Date 4</b></td>
-                                <td><b>Date 5</b></td>
-                                 <td><b>Date 6</b></td>
-                                  <td><b>Date 7</b></td>
+                                <?php foreach ($tanggal as $key => $t) { ?>
+                                <td><b><?php echo date('d/m',  strtotime($t)) ?></b></td>
+                                <?php } ?>
+                               
                             </tr>
                         </thead>
+             
                         <?php 
                         
 						$perulangan=0;
@@ -39,15 +37,12 @@
                         <tbody>
                         	<?php for ($i=0; $i < $perulangan; $i++) { ?>
                             <tr>
+                            	
                                 <td><?php echo $i+1?></td>
-
-                                <td><?php echo (!empty($s['row'][0][$i]['team'])) ? $s['row'][0][$i]['team'].'</br>'.$s['row'][0][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][1][$i]['team'])) ? $s['row'][1][$i]['team'].'</br>'.$s['row'][1][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][2][$i]['team'])) ? $s['row'][2][$i]['team'].'</br>'.$s['row'][2][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][3][$i]['team'])) ? $s['row'][3][$i]['team'].'</br>'.$s['row'][3][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][4][$i]['team'])) ? $s['row'][4][$i]['team'].'</br>'.$s['row'][4][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][5][$i]['team'])) ? $s['row'][5][$i]['team'].'</br>'.$s['row'][5][$i]['time'] : '' ; ?></td>
-                                <td><?php echo (!empty($s['row'][6][$i]['team'])) ? $s['row'][6][$i]['team'].'</br>'.$s['row'][6][$i]['time'] : '' ; ?></td>
+                                
+                                <?php for ($j=0; $j < 7; $j++) { ?>
+                                	<td><?php echo (!empty($s['row'][$j][$i]['team'])) ? $s['row'][$j][$i]['team'].'</br>'.substr($s['row'][$j][$i]['time'], 0, 5)  : '' ; ?></td>    
+                                <?php } ?>
                                 
                             </tr>
                             <?php }?>

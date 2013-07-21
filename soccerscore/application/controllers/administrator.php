@@ -180,6 +180,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['summary'] = $this->m_bola->getallsummary();
+		$data['tanggal'] = $this->m_bola->tanggalsummary();
 		//$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
 		
         $this->load->view('admin/main', $data);
@@ -304,7 +305,7 @@ class Administrator extends CI_Controller {
         }
         //echo '<pre>';
         //echo print_r($match);
-        //echo '</pre>';
+        //echo '</pre>';exit();
         //insert dom
         return $match;
     }
@@ -313,8 +314,9 @@ class Administrator extends CI_Controller {
 
         $this->load->model('m_dom');
         foreach ($data as $m) {
+        	$isedited=$this->m_dom->cekedited($m);
 			
-            if ($this->m_dom->cekdataisexist($m['id_team'], $m['date'])) {
+            if ($this->m_dom->cekdataisexist($m['id_team'], $m['date'])&& $isedited!=1) {
                 echo 'update', $this->m_dom->updatedom($m);
             } else {
                 echo 'insert ' . $this->m_dom->insertdom($m);
@@ -350,6 +352,20 @@ class Administrator extends CI_Controller {
 	        $this->insertDom($dom);
 		}
 		 redirect('/administrator/list_team/', 'refresh');
+	}
+	
+	public function edit_dom()
+	{
+		$result1= $this->input->post('result1');	
+		$result2= $this->input->post('result2');	
+		$id_dom= $this->input->post('id_dom');	
+		
+		$data['result']=$result1;
+		$data['result2']=$result2;
+		$data['edited']=1;
+		$this->m_bola->edit_dom($data,$id_dom);
+		
+		 redirect('/administrator/extratimelist/', 'refresh');
 	}
 	
 }

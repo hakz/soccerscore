@@ -62,7 +62,7 @@ class m_bola extends CI_Model {
         $this->db->select('*');
         $this->db->join('negara', 'team.id_negara=negara.id_negara');
         $this->db->join('dom', 'team.id_team=dom.id_team');
-        return $this->db->get_where('team', array('extratime' => 1))->result_array();
+        return $this->db->get_where('team', array('extratime' => 1, 'edited' =>0))->result_array();
     }
 
     function delete_team($id_team) {
@@ -120,12 +120,25 @@ class m_bola extends CI_Model {
 		return $data;
 	}
 	
+	function tanggalsummary()
+	{
+		$date = date('Y-m-d');
+		$data[0]=date('Y-m-d', strtotime('+0 day', strtotime($date)));
+		$data[1]=date('Y-m-d', strtotime('+1 day', strtotime($date)));
+		$data[2]=date('Y-m-d', strtotime('+2 day', strtotime($date)));
+		$data[3]=date('Y-m-d', strtotime('+3 day', strtotime($date)));
+		$data[4]=date('Y-m-d', strtotime('+4 day', strtotime($date)));
+		$data[5]=date('Y-m-d', strtotime('+5 day', strtotime($date)));
+		$data[6]=date('Y-m-d', strtotime('+6 day', strtotime($date)));
+		return $data;
+	}
+	
     function getsummary($id_negara=5) {
         //1. get hari ini
         //1. get hari ini+1
         //1. get hari ini+2
         $date = '2013-8-17';
-		 $date = date('Y-m-d');
+		$date = date('Y-m-d');
         $sum[0] = $this->getsummarybydate(date('Y-m-d', strtotime('+0 day', strtotime($date))),$id_negara);
         $sum[1] = $this->getsummarybydate(date('Y-m-d', strtotime('+1 day', strtotime($date))),$id_negara);
         $sum[2] = $this->getsummarybydate(date('Y-m-d', strtotime('+2 day', strtotime($date))),$id_negara);
@@ -170,9 +183,45 @@ class m_bola extends CI_Model {
 		$this->db->where('negara.id_negara', $id_negara);
         $this->db->join('team', 'dom.id_team=team.id_team');
         $this->db->join('negara', 'team.id_negara=negara.id_negara');
-        $res = $this->db->get('dom');
-        return $res->result_array();
+        $res = $this->db->get('dom')->result_array();
+        
+		$data=array();;
+		
+        foreach ($res as $key => $r) {
+        	
+            if ($this->isandalan($r['id_team'])) {
+            	
+                $data[]=$r;
+            }
+            
+        }
+        return $data;
     }
+	
+	function isandalan($id_team='')
+	{
+		$this->db->where('team.id_team',$id_team);
+		$this->db->where('status_tanding','1');
+		$this->db->join('dom', 'team.id_team=dom.id_team');
+		$this->db->order_by('dom.date','desc');	
+		$this->db->limit(3);
+		$res=$this->db->get('team')->result_array();;
+		//echo $res[0]['result'];exit();
+		if($res[0]['result']=='O' && $res[1]['result']=='O' && $res[2]['result']=='O')
+		{
+			return true;
+		}else false;
+	}
+	
+	function edit_dom($data='', $id_dom=0)
+	{
+		$this->db->where('id_dom', $id_dom);
+        
+		$this->db->trans_start();
+        $this->db->update('dom', $data); 
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+	}
 
 }
 
