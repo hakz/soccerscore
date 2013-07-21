@@ -101,42 +101,67 @@ class m_bola extends CI_Model {
         $this->db->limit(15);
         return $this->db->get('dom')->result_array();
     }
-
-    function getsummary() {
+	
+	function getallsummary()
+	{
+		$negara=$this->getnegara();
+		foreach ($negara as $key => $n) {
+			$data[$key]['id_negara']=$n['id_negara'];
+			$data[$key]['negara']=$n['negara'];
+			$data[$key]['row']=$this->getsummary($n['id_negara']);
+		}
+		
+		return $data;
+	}
+	
+    function getsummary($id_negara=5) {
         //1. get hari ini
         //1. get hari ini+1
         //1. get hari ini+2
-        $date = '2013-09-13';
-        $sum[0] = $this->getsummarybydate(date('Y-m-d', strtotime('+0 day', strtotime($date))));
-        $sum[1] = $this->getsummarybydate(date('Y-m-d', strtotime('+1 day', strtotime($date))));
-        $sum[2] = $this->getsummarybydate(date('Y-m-d', strtotime('+2 day', strtotime($date))));
-        $sum[3] = $this->getsummarybydate(date('Y-m-d', strtotime('+3 day', strtotime($date))));
-        $sum[4] = $this->getsummarybydate(date('Y-m-d', strtotime('+4 day', strtotime($date))));
-        $sum[5] = $this->getsummarybydate(date('Y-m-d', strtotime('+5 day', strtotime($date))));
-        $sum[6] = $this->getsummarybydate(date('Y-m-d', strtotime('+6 day', strtotime($date))));
+        $date = '2013-8-17';
+		 $date = date('Y-m-d');
+        $sum[0] = $this->getsummarybydate(date('Y-m-d', strtotime('+0 day', strtotime($date))),$id_negara);
+        $sum[1] = $this->getsummarybydate(date('Y-m-d', strtotime('+1 day', strtotime($date))),$id_negara);
+        $sum[2] = $this->getsummarybydate(date('Y-m-d', strtotime('+2 day', strtotime($date))),$id_negara);
+        $sum[3] = $this->getsummarybydate(date('Y-m-d', strtotime('+3 day', strtotime($date))),$id_negara);
+        $sum[4] = $this->getsummarybydate(date('Y-m-d', strtotime('+4 day', strtotime($date))),$id_negara);
+        $sum[5] = $this->getsummarybydate(date('Y-m-d', strtotime('+5 day', strtotime($date))),$id_negara);
+        $sum[6] = $this->getsummarybydate(date('Y-m-d', strtotime('+6 day', strtotime($date))),$id_negara);
 
         $data;
         //echo '<pre>';
         $i = 0;
+		$j=0;
+		$k=0;
         $id_negara_last = 0;
 
         foreach ($sum as $key_day => $s) {
             foreach ($s as $key => $t) {
+            	//print_r($t);exit();
                 if ($t['id_negara'] == $id_negara_last) {
                     
+					$j++;
+					$k++;
                 } else {
                     $data[$i]['id_negara'] = $t['id_negara'];
                     $data[$i]['negara'] = $t['negara'];
-                }
+					
+					$data[$i]['row'][$j]['team'] = $t['negara'];
+                	$i++;
+					$j=0;
+					$k=0;
+				}
+				$id_negara_last = $t['id_negara'];
             }
         }
-        return $data;
+        return $sum;
     }
 
-    function getsummarybydate($date = '') {
+    function getsummarybydate($date = '', $id_negara=0) {
 
         $this->db->where('date', $date);
         $this->db->where('status_tanding', 0);
+		$this->db->where('negara.id_negara', $id_negara);
         $this->db->join('team', 'dom.id_team=team.id_team');
         $this->db->join('negara', 'team.id_negara=negara.id_negara');
         $res = $this->db->get('dom');
