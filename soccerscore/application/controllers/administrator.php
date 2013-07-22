@@ -23,7 +23,11 @@ class Administrator extends CI_Controller {
     }
 
     public function input() {
+        $data['ctrl']['team'] = '';
+        $data['ctrl']['negara'] = '';
+        $data['ctrl']['link'] = '';
         $data['ctrl']['page'] = 'input';
+        $data['ctrl']['tipe'] = 'Input';
         $data['ctrl']['navigation1'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
 
@@ -41,12 +45,22 @@ class Administrator extends CI_Controller {
         $data['id_negara'] = $this->m_bola->get_id_negara($this->input->post('negara'));
         $data['team'] = $this->input->post('team');
         $data['link'] = $this->input->post('link');
+        $data['id_team'] = $this->uri->segment(3);
+        if ($this->input->post('tipe') == 'Input') {
+            if ($this->m_bola->input_team($data)) {
+                echo 'sukses input';
+            } else
+                echo 'gagal input';
+            redirect('/administrator/list_team/', 'refresh');
+        }
 
-        if ($this->m_bola->input_team($data)) {
-            echo 'sukses input';
-        } else
-            echo 'gagal input';
-        redirect('/administrator/list_team/', 'refresh');
+        if ($this->input->post('tipe') == 'Edit') {
+            if ($this->m_bola->edit_team($data['id_team'], $data['id_negara'])) {
+                echo 'sukses edit';
+            } else 
+                echo 'gagal edit';
+            redirect('/administrator/list_team/', 'refresh');
+        }
     }
 
     public function list_team() {
@@ -55,6 +69,18 @@ class Administrator extends CI_Controller {
         $data['ctrl']['navigation2'] = 'active';
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['list_team'] = $this->m_bola->list_team($order_by);
+        $this->load->view('admin/main', $data);
+    }
+
+    public function edit_team($id_team = 0) {
+        $dt = $this->m_bola->getteambyid($id_team);
+        $data['ctrl']['team'] = $dt->team;
+        $data['ctrl']['negara'] = $dt->negara;
+        $data['ctrl']['link'] = $dt->link;
+        $data['ctrl']['page'] = 'input';
+        $data['ctrl']['tipe'] = 'Edit';
+        $data['ctrl']['navigation2'] = 'active';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $this->load->view('admin/main', $data);
     }
 
@@ -180,13 +206,12 @@ class Administrator extends CI_Controller {
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['summary'] = $this->m_bola->getallsummary();
-		$data['tanggal'] = $this->m_bola->tanggalsummary();
-		//$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
-		
+        $data['tanggal'] = $this->m_bola->tanggalsummary();
+        //$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
+
         $this->load->view('admin/main', $data);
     }
 
-	
     public function summaryou() {
         $data['ctrl']['page'] = 'summaryou';
         $data['ctrl']['navigation7'] = 'active';
@@ -298,8 +323,8 @@ class Administrator extends CI_Controller {
                 $match[$i]['id_team'] = $id_team;
                 $match[$i]['time'] = str_replace(' ', '', str_replace('-', '', trim($time)));
                 $match[$i]['status_tanding'] = trim($status);
-                $match[$i]['result']= $this->result($match[$i]['score1'], $match[$i]['score2'],1);
-				$match[$i]['result2']= $this->result($match[$i]['score1'], $match[$i]['score2'],2);
+                $match[$i]['result'] = $this->result($match[$i]['score1'], $match[$i]['score2'], 1);
+                $match[$i]['result2'] = $this->result($match[$i]['score1'], $match[$i]['score2'], 2);
                 $i++;
             }
         }
@@ -314,9 +339,9 @@ class Administrator extends CI_Controller {
 
         $this->load->model('m_dom');
         foreach ($data as $m) {
-        	$isedited=$this->m_dom->cekedited($m);
-			
-            if ($this->m_dom->cekdataisexist($m['id_team'], $m['date'])&& $isedited!=1) {
+            $isedited = $this->m_dom->cekedited($m);
+
+            if ($this->m_dom->cekdataisexist($m['id_team'], $m['date']) && $isedited != 1) {
                 echo 'update', $this->m_dom->updatedom($m);
             } else {
                 echo 'insert ' . $this->m_dom->insertdom($m);
@@ -329,45 +354,45 @@ class Administrator extends CI_Controller {
         $datebaru = '20' . $ex_date[2] . '-' . $ex_date[1] . '-' . $ex_date[0];
         return $datebaru;
     }
-    
-    public function result($score1 = '', $score2 = '', $tipe=1){
-    	if($tipe==1)
-    	{
-    		if(($score1+$score2)%2==0) return 'E';
-			else return 'O';
-		}else
-		{
-			if(($score1+$score2)<2.5) return 'U';
-			else return 'O';
-		}
+
+    public function result($score1 = '', $score2 = '', $tipe = 1) {
+        if ($tipe == 1) {
+            if (($score1 + $score2) % 2 == 0)
+                return 'E';
+            else
+                return 'O';
+        }else {
+            if (($score1 + $score2) < 2.5)
+                return 'U';
+            else
+                return 'O';
+        }
     }
-	
-	public function syncronizrall()
-	{
-		$team= $this->m_bola->getteam();
-		foreach ($team as $key => $t) {
-			$url = $t['link'];
-	        $id_team = $t['id_team'];
-	        $dom = $this->domScore($url, $id_team);
-	        $this->insertDom($dom);
-		}
-		 redirect('/administrator/list_team/', 'refresh');
-	}
-	
-	public function edit_dom()
-	{
-		$result1= $this->input->post('result1');	
-		$result2= $this->input->post('result2');	
-		$id_dom= $this->input->post('id_dom');	
-		
-		$data['result']=$result1;
-		$data['result2']=$result2;
-		$data['edited']=1;
-		$this->m_bola->edit_dom($data,$id_dom);
-		
-		 redirect('/administrator/extratimelist/', 'refresh');
-	}
-	
+
+    public function syncronizrall() {
+        $team = $this->m_bola->getteam();
+        foreach ($team as $key => $t) {
+            $url = $t['link'];
+            $id_team = $t['id_team'];
+            $dom = $this->domScore($url, $id_team);
+            $this->insertDom($dom);
+        }
+        redirect('/administrator/list_team/', 'refresh');
+    }
+
+    public function edit_dom() {
+        $result1 = $this->input->post('result1');
+        $result2 = $this->input->post('result2');
+        $id_dom = $this->input->post('id_dom');
+
+        $data['result'] = $result1;
+        $data['result2'] = $result2;
+        $data['edited'] = 1;
+        $this->m_bola->edit_dom($data, $id_dom);
+
+        redirect('/administrator/extratimelist/', 'refresh');
+    }
+
 }
 
 /* End of file welcome.php */
