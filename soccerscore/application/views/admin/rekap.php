@@ -3,6 +3,9 @@
 //echo print_r($teams);
 //echo '</pre>';
 ?>
+<legend>
+	REKAP O/E
+</legend>
 <div class="tabbable">
    
     <form method="POST" action="<?php echo base_url('index.php/administrator/pilihrekap'); ?>">
@@ -30,16 +33,16 @@
                 <td rowspan="2"><?php echo ++$key?></td>
                 <td rowspan="2"><?php echo $team['team']?></td>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php 
+                	<td><center><?php 
                 	$source = $rekap['date'];
 					$date = new DateTime($source);
                 	echo $date->format('d/m'); 
-                	?></td>
+                	?></center></td>
                 <?php } ?>
             </tr>
             <tr>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php
+                	<td><center><?php
                 	if ($rekap['extratime']==0) {
                 		echo $rekap['result'] ; 	
 					} else {
@@ -49,7 +52,7 @@
 					}
 					
                 	
-                	?></td>
+                	?></center></td>
                 <?php } ?>
             </tr>
             <?php }?>

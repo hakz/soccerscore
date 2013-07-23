@@ -3,24 +3,26 @@
 //echo print_r($teams);
 //echo '</pre>';
 ?>
+<legend>
+	REKAP O/U
+</legend>
 <div class="tabbable">
-    <div class="container">
-        <ul class="nav nav-tabs">
-        	<?php foreach ($listnegara as $negara) { ?>
-                
-            <li class="">
-                
-                <a href="<?php echo base_url() . 'index.php/administrator/rekap/'.$negara['id_negara'] ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
-            </li>
-            <?php } ?>
- 
-        </ul>
-    </div>
+    <form method="POST" action="<?php echo base_url('index.php/administrator/pilihrekapou'); ?>">
+		<select name="negara" id="select_id">
+		
+		<?php foreach ($list_negara as $key => $neg) { ?>
+			<option class="sel" <?php echo ($neg['id_negara']==$this->uri->segment(3)) ? 'selected' : '' ; ?>  value="<?php echo $neg['id_negara'] ?>"><?php echo $neg['negara'] ?></option>
+		<?php } ?>
+		</select>
+
+	<button class="btn btn-primary" type="submit">Tampilkan</button>
+		
+	</form>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Team</th>
+                <th><a href="<?php echo base_url('index.php/administrator/rekapou/'.$this->uri->segment(3).'?order=team');?>">Team</a></th>
                 
             </tr>
         </thead>
@@ -31,16 +33,16 @@
                 <td rowspan="2"><?php echo ++$key?></td>
                 <td rowspan="2"><?php echo $team['team']?></td>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php 
+                	<td><center><?php 
                 	$source = $rekap['date'];
 					$date = new DateTime($source);
                 	echo $date->format('d/m'); 
-                	?></td>
+                	?></center></td>
                 <?php } ?>
             </tr>
             <tr>
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
-                	<td><?php
+                	<td><center><?php
                 	if ($rekap['extratime']==0) {
                 		echo (($rekap['score1']+$rekap['score2'])<2.5) ? 'U' : 'O' ; 	
 					} else {
@@ -50,7 +52,7 @@
 					}
 					
                 	
-                	?></td>
+                	?></center></td>
                 <?php } ?>
             </tr>
             <?php }?>

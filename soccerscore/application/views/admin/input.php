@@ -17,7 +17,7 @@
 ?>
 <div class="control-group">
 	<legend>
-		<?php echo $ctrl['tipe']; ?> Data Soccerway
+		<?php echo strtoupper($ctrl['tipe']) ; ?> DATA
 	</legend>
 </div>
 <div class="control-group">

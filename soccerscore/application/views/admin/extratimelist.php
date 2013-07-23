@@ -1,6 +1,9 @@
 <!--<pre>
     <?php print_r($extratime); ?>
 </pre>-->
+<legend>
+		EXTRA TIME LIST
+</legend>
 <div class="tabbable">
 
     <div class="tab-content">
@@ -11,10 +14,8 @@
                     <th style="" class="span2">Tanggal</th>
                     <th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/extratimelist?order=negara'); ?>">Negara</a></th>
                     <th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/extratimelist?order=team'); ?>">Team</a></th>
-                    <th style="" class="span1">score 1</th>
-                    <th style="" class="span1">score 2</th>
-                    <th style="" class="span1">Result 1</th>
-                    <th style="" class="span1">Result 2</th>
+                    <th style="" class="span1">REKAP O/E</th>
+                    <th style="" class="span1">REKAP O/U</th>
                     <th style="" class="span1">Edit</th>
                 </tr>
             </thead>
@@ -25,8 +26,6 @@
                         <td><?php echo $extra['date'] ?></td>
                         <td><?php echo $extra['negara'] ?></td>
                         <td><?php echo $extra['team'] ?></td>
-                        <td><?php echo $extra['score1'] ?></td>
-                        <td><?php echo $extra['score2'] ?></td>
                         <?php echo form_open('administrator/edit_dom', ''); ?>
                         <td><input class="span8" type="text" name="result1" value="<?php echo $extra['result'] ?>"/></td>
                         <td><input class="span8" type="text" name="result2" value="<?php echo $extra['result2'] ?>"/></td>

@@ -3,8 +3,10 @@
 //print_r($list_negara);
 //echo $id_negara;
 //echo '</pre>';
-
 ?>
+<legend>
+	LIST TEAM
+</legend>
 <div class="tabbable">
 	<form method="POST" action="<?php echo base_url('index.php/administrator/pilihlistteam'); ?>">
 		<select name="negara" id="select_id">

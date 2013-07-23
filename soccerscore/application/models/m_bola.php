@@ -93,6 +93,14 @@ class m_bola extends CI_Model {
         return $this->db->trans_status();
     }
 
+	function deletedom($id_team)
+	{
+		$this->db->trans_start();
+        $this->db->delete('dom', array('id_team' => $id_team));
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+	}
+
     function getnegara() {
         return $this->db->get('negara')->result_array();
     }

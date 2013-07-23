@@ -97,7 +97,10 @@ class Administrator extends CI_Controller {
 
     public function delete_team($id_team = 0) {
         if ($this->m_bola->delete_team($id_team)) {
-            redirect('/administrator/list_team/', 'refresh');
+        	if($this->m_bola->deletedom($id_team))
+        	{
+        		 redirect('/administrator/list_team/', 'refresh');
+        	}
         } else
             echo 'gagal delete team';
     }
@@ -266,14 +269,26 @@ class Administrator extends CI_Controller {
 		redirect('/administrator/rekap/' . $id_negara, 'refresh');
 	}
 
+	public function pilihrekapou()
+	{
+		$id_negara=$this->input->post('negara');
+		redirect('/administrator/rekapou/' . $id_negara, 'refresh');
+	}
+
     public function rekapou($id_negara = 1) {
-        $data['listnegara'] = $this->m_bola->getnegara();
+        $data['list_negara'] = $this->m_bola->getnegara();
 
         $data['ctrl']['page'] = 'rekapou';
         $data['ctrl']['navigation6'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation7'] = '';
-
-        $data['teams'] = $this->m_bola->getdatateampernegara($id_negara);
+		
+		$order=$this->input->get('order');
+		
+		if(empty($order))
+		{
+			$order='id_team';
+		}
+        $data['teams'] = $this->m_bola->getdatateampernegara($id_negara, $order);
         $this->load->library('pagination');
 
         //$config['base_url'] = base_url('index.php/administrator/rekap/');
@@ -397,9 +412,9 @@ class Administrator extends CI_Controller {
                 return 'O';
         }else {
             if (($score1 + $score2) < 2.5)
-                return 'O';
-            else
                 return 'U';
+            else
+                return 'O';
         }
     }
 
@@ -411,7 +426,7 @@ class Administrator extends CI_Controller {
             $dom = $this->domScore($url, $id_team);
             $this->insertDom($dom);
         }
-        redirect('/administrator/list_team/', 'refresh');
+        redirect('/administrator/list_team/'.$id_negara, 'refresh');
     }
 
     public function edit_dom() {
