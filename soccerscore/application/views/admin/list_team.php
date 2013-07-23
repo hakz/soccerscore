@@ -1,17 +1,31 @@
 <?php
 //echo '<pre>';
-//print_r($list_team);
+//print_r($list_negara);
+//echo $id_negara;
 //echo '</pre>';
+
 ?>
 <div class="tabbable">
+	<form method="POST" action="<?php echo base_url('index.php/administrator/pilihlistteam'); ?>">
+		<select name="negara" id="select_id">
+
+		<?php foreach ($list_negara as $key => $neg) { ?>
+			<option class="sel" <?php echo ($neg['id_negara']==$this->uri->segment(3)) ? 'selected' : '' ; ?>  value="<?php echo $neg['id_negara'] ?>"><?php echo $neg['negara'] ?></option>
+		<?php } ?>
+		</select>
+
+	<button class="btn btn-primary" type="submit">Tampilkan</button>
+		
+	</form>
 	
+
 	<div class="tab-content">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th style="" class="span1">No</th>
-					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team?order=negara');?>">Negara</a></th>
-					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team?order=team');?>">Team</a></th>
+					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team/'.$this->uri->segment(3).'?order=negara');?>">Negara</a></th>
+					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team/'.$this->uri->segment(3).'?order=team');?>">Team</a></th>
 					<th style="" class="span5">Link</th>
 					<th style="" class="span1">Sync</th>
 					<th style="" class="span1">Action</th>
@@ -27,12 +41,13 @@
 					<td><a href="<?php echo $team['link']?>"><?php echo $team['link']?></a></td>
 					<td style="text-align: center"><?php echo anchor('administrator/dograb?link='.$team['link'].'&id_team='.$team['id_team'], '<i class="icon-refresh"></i>', 'title="Refresh"'); ?></td>
 					<td style="text-align: center"><a href="<?php echo site_url('administrator/edit_team/' . $team['id_team']); ?>" title="Edit"><i class="icon-edit"></i></a> <a href="<?php echo site_url('administrator/delete_team/' . $team['id_team']); ?>" onclick="return confirm('Anda yakin ?');" title="Delete"><i class="icon-remove"></i></a></td>
+               		
                </tr>
 
 				<?php } ?>
 				<tr>
 					<td colspan="4"></td>
-					<td><?php echo anchor('administrator/syncronizrall', 'Syncronize All !!', 'title="Syncronize All" class="btn btn-small btn-success"'); ?></td>
+					<td><?php echo anchor('administrator/syncronizrall/'.$id_negara, 'Syncronize All !!', 'title="Syncronize All" class="btn btn-small btn-success"'); ?></td>
 					<td></td>
 				</tr>
 			</tbody>

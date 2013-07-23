@@ -4,24 +4,23 @@
 //echo '</pre>';
 ?>
 <div class="tabbable">
-    <div class="container">
-        <ul class="nav nav-tabs">
-        	<?php foreach ($listnegara as $negara) { ?>
-                
-            <li class="">
-                
-                <a href="<?php echo base_url() . 'index.php/administrator/rekap/'.$negara['id_negara'] ?>" data-toggle="tab"><?php echo $negara['negara']?></a>
-            </li>
-            <?php } ?>
- 
-        </ul>
-    </div>
+   
+    <form method="POST" action="<?php echo base_url('index.php/administrator/pilihrekap'); ?>">
+		<select name="negara" id="select_id">
+		
+		<?php foreach ($list_negara as $key => $neg) { ?>
+			<option class="sel" <?php echo ($neg['id_negara']==$this->uri->segment(3)) ? 'selected' : '' ; ?>  value="<?php echo $neg['id_negara'] ?>"><?php echo $neg['negara'] ?></option>
+		<?php } ?>
+		</select>
+
+	<button class="btn btn-primary" type="submit">Tampilkan</button>
+		
+	</form>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Team</th>
-                
+                <th><a href="<?php echo base_url('index.php/administrator/rekap/'.$this->uri->segment(3).'?order=team');?>">Team</a></th>
             </tr>
         </thead>
         <tbody>

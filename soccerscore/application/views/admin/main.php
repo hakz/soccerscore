@@ -24,12 +24,12 @@
 
     </head>
     <body style="background-color: #f5f5f5; margin-top: -60px;"  >
-        <header class="jumbotron subhead" id="overview" style="background-color: white">
-            <div class="container">
-                <h1>MySocStats</h1>
-                <p class="lead">One stop soccer score web application</p>
-            </div>
-        </header>
+        <div class="navbar navbar-inverse navbar-static-top">
+			<div class="navbar-inner">
+				<center><a class="brand" href="#">MySocStats</a></center>
+			</div>
+		</div>
+		</br>
         <!--		</header>-->
         <div class="container-fluid" >
             <div class="row-fluid">

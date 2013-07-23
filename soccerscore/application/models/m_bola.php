@@ -18,17 +18,16 @@ class m_bola extends CI_Model {
         return $d->row();
     }
     
-    function edit_team($id_team, $id_negara){
-        $team = $this->input->post('team');
-        $link = $this->input->post('link');
-        $negara = $this->input->post('negara');
-        $dt = array('team' => $team,
-            'link' => $link,
-            'negara' => $negara
-            );
-        $this->db->join('negara', 'team.id_negara=negara.id_negara');
-        $this->db->where('id_team', $id_team);
-        $this->db->update('negara', $dn);
+    function edit_team($data=''){
+      $ndata['team']=$data['team'];
+	  $ndata['link']=$data['link'];
+	 // echo '<pre>';
+	  //print_r($data);exit();
+      $this->db->trans_start();
+	  $this->db->where('id_team',$data['id_team']);
+      $this->db->update('team', $ndata);
+      $this->db->trans_complete();
+      return $this->db->trans_status();
     }
     
     
@@ -66,11 +65,12 @@ class m_bola extends CI_Model {
         return $this->db->trans_status();
     }
 
-    function list_team($order_by = 'id_team') {
+    function list_team($order_by = 'id_team', $id_negara=0) {
         if ($order_by == '') {
             $order_by = 'id_team';
         }
         $this->db->select('*');
+		$this->db->where('team.id_negara',$id_negara);
         $this->db->join('negara', 'team.id_negara=negara.id_negara');
         $this->db->order_by($order_by, 'asc');
         return $this->db->get('team')->result_array();
@@ -101,13 +101,14 @@ class m_bola extends CI_Model {
         return $this->db->get('team')->result_array();
     }
 
-    function getteambynegara($id_negara = 0) {
+    function getteambynegara($id_negara = 0,$order_by) {
         $this->db->where('id_negara', $id_negara);
+		$this->db->order_by($order_by);
         return $this->db->get('team')->result_array();
     }
 
-    function getdatateampernegara($id_negara = 0) {
-        $listteam = $this->getteambynegara($id_negara);
+    function getdatateampernegara($id_negara = 1 ,$order_by='id_team') {
+        $listteam = $this->getteambynegara($id_negara, $order_by);
         $data = null;
         $i = 0;
         foreach ($listteam as $team) {

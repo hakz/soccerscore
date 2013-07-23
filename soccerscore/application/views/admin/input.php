@@ -1,5 +1,6 @@
 <?php if (validation_errors()) {
 ?>
+
 <div class="alert alert-error">
 	<button type="button" class="close" data-dismiss="alert">
 		x
@@ -8,7 +9,12 @@
 	<?php echo validation_errors(); ?>
 </div>
 <?php } ?>
-<?php echo form_open('administrator/do_input', 'class="form-horizontal"'); ?>
+
+
+<?php 
+	echo form_open('administrator/do_input/'.$this->uri->segment(3), 'class="form-horizontal"'); 
+	
+?>
 <div class="control-group">
 	<legend>
 		<?php echo $ctrl['tipe']; ?> Data Soccerway
@@ -17,7 +23,7 @@
 <div class="control-group">
 	<label class="control-label" for="kd_negara">Negara</label>
 	<div class="controls">
-            <input type="text" style="width:300px;" name="negara" placeholder="National" value="<?php echo $ctrl['negara']; ?>">
+            <input <?php echo (!empty($status)) ? 'disabled' : '' ;?> type="text" style="width:300px;" name="negara" placeholder="National" value="<?php echo $ctrl['negara']; ?>">
 	</div>
 </div>
 <div class="control-group">
