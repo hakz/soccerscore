@@ -6,10 +6,10 @@
 </legend>
 	
 <ul class="nav nav-tabs">
-  <li class="active">
-   <a href="<?php echo base_url('index.php/administrator/extratimelist')?>">EXTRATIME</a>
+  <li class="">
+    <a href="<?php echo base_url('index.php/administrator/extratimelist')?>">EXTRATIME</a>
   </li>
-  <li><a href="<?php echo base_url('index.php/administrator/extratimeedited')?>">EDITED</a></li>
+  <li class="active"><a href="<?php echo base_url('index.php/administrator/extratimeedited')?>">EDITED</a></li>
 </ul>
 <div class="tabbable">
 

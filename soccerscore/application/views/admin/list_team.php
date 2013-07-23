@@ -29,8 +29,8 @@
 					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team/'.$this->uri->segment(3).'?order=negara');?>">Negara</a></th>
 					<th style="" class="span2"><a href="<?php echo base_url('index.php/administrator/list_team/'.$this->uri->segment(3).'?order=team');?>">Team</a></th>
 					<th style="" class="span5">Link</th>
-					<th style="" class="span1">Sync</th>
-					<th style="" class="span1">Action</th>
+					<th style="" class="span1"><center>Sync</center></th>
+					<th style="" class="span1"><center>Action</center></th>
 				</tr>
 			</thead>
 			<tbody>

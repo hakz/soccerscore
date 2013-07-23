@@ -76,14 +76,14 @@ class m_bola extends CI_Model {
         return $this->db->get('team')->result_array();
     }
 
-    function extratime_list($order_by = 'id_team') {
+    function extratime_list($order_by = 'id_team',$edited=0) {
         if ($order_by = '') {
             $order_by = 'id_team';
         }
         $this->db->select('*');
         $this->db->join('negara', 'team.id_negara=negara.id_negara');
         $this->db->join('dom', 'team.id_team=dom.id_team');
-        return $this->db->get_where('team', array('extratime' => 1, 'edited' => 0))->result_array();
+        return $this->db->get_where('team', array('extratime' => 1, 'edited' => $edited))->result_array();
     }
 
     function delete_team($id_team) {

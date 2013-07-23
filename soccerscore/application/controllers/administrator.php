@@ -106,13 +106,25 @@ class Administrator extends CI_Controller {
     }
 
     public function extratimelist() {
+    	$edited=0;
         $order_by = $this->input->get('order');
         $data['ctrl']['navigation5'] = 'active';
         $data['ctrl']['page'] = 'extratimelist';
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-        $data['extratime'] = $this->m_bola->extratime_list($order_by);
+        $data['extratime'] = $this->m_bola->extratime_list($order_by,$edited);
         $this->load->view('admin/main', $data);
     }
+	
+	public function extratimeedited()
+	{
+		$edited=1;
+		$order_by = $this->input->get('order');
+        $data['ctrl']['navigation5'] = 'active';
+        $data['ctrl']['page'] = 'extratimeedited';
+        $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+        $data['extratime'] = $this->m_bola->extratime_list($order_by,$edited);
+        $this->load->view('admin/main', $data);
+	}
 
     public function barang($uri1 = 'movie', $itm = 0) {
         //pagination config
