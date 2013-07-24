@@ -225,14 +225,14 @@ class Administrator extends CI_Controller {
         }
     }
 
-    public function summary($id_negara = 1) {
+    public function summary($page=0) {
         $data['listnegara'] = $this->m_bola->getnegara();
 
         $data['ctrl']['page'] = 'summary';
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-        $data['summary'] = $this->m_bola->getallsummary();
-        $data['tanggal'] = $this->m_bola->tanggalsummary();
+        $data['summary'] = $this->m_bola->getallsummary($page);
+        $data['tanggal'] = $this->m_bola->tanggalsummary($page);
         //$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
 
         $this->load->view('admin/main', $data);

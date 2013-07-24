@@ -1,27 +1,38 @@
 <?php 
 //echo '<pre>';
-//print_r($tanggal);
+//print_r($summary);
 //echo '</pre>';
-
 ?>
+<legend>
+	SUMMARY O/E
+</legend>
+<a href="<?php echo base_url('index.php/administrator/summary/'.($this->uri->segment(3)-1));?>">Prev</a> / <a href="<?php echo base_url('index.php/administrator/summary/'.($this->uri->segment(3)+1));?>">Next</a>
+(<?php echo $tanggal[0].' - '.$tanggal[6] ?>)</br></br>
+
 
 <div class="row-fluid">
+	 
 	<?php foreach ($summary as $key => $s) { ?>
-		 <div class="accordion" id="accordion<?php echo $key+1?>">
-        <div class="accordion-group">
+		
             <div class="accordion-heading"><a class="accordion-toggle" href="#collapse<?php echo $key+1?>" data-toggle="collapse" data-parent="#accordion<?php echo $key+1?>"><?php echo $s['negara']?></a></div>
             <div class="accordion-body collapse" id="collapse<?php echo $key+1?>">
-                <div class="accordion-inner">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td><b>No</b></td>
-                                <?php foreach ($tanggal as $key => $t) { ?>
-                                <td><b><?php echo date('d/m',  strtotime($t)) ?></b></td>
-                                <?php } ?>
-                               
-                            </tr>
-                        </thead>
+         
+                    <table class="table table-bordered">
+                       <thead>
+			             <tr >
+			                 
+			                 <?php foreach ($tanggal as $key => $t) { ?>
+			                    <td><center><b><?php 
+			                    	if(($key == 3) && $this->uri->segment(3)==0)
+			                    		echo 'today';
+			                    	else
+			                    		echo date('d/m',  strtotime($t)) 
+			                    
+			                    ?></b></center></td>
+			                 <?php } ?>
+			                               
+			             </tr>
+			          </thead>
              
                         <?php 
                         
@@ -38,20 +49,20 @@
                         	<?php for ($i=0; $i < $perulangan; $i++) { ?>
                             <tr>
                             	
-                                <td><?php echo $i+1?></td>
+                                
                                 
                                 <?php for ($j=0; $j < 7; $j++) { ?>
-                                	<td><?php echo (!empty($s['row'][$j][$i]['team'])) ? $s['row'][$j][$i]['team'].'</br>'.substr($s['row'][$j][$i]['time'], 0, 5)  : '' ; ?></td>    
+                                	<td class=""><center><?php echo (!empty($s['row'][$j][$i]['team'])) ? $s['row'][$j][$i]['team'].'('.$s['row'][$j][$i]['sum'].')'  : '' ; ?></center></td>    
                                 <?php } ?>
                                 
                             </tr>
                             <?php }?>
                         </tbody>
                     </table>
-                </div>
-            </div>
+             
+ 
         </div>
 	<?php }?>
    
-    </div>
+    
 </div>
