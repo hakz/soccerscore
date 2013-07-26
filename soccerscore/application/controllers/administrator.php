@@ -22,7 +22,7 @@ class Administrator extends CI_Controller {
         $this->load->view('admin/main', $data);
     }
 
-    public function input() {
+    public function input($id_negara=1) {
         $data['ctrl']['team'] = '';
         $data['ctrl']['negara'] = '';
         $data['ctrl']['link'] = '';
@@ -33,8 +33,25 @@ class Administrator extends CI_Controller {
 
         $this->load->view('admin/main', $data);
     }
+	
+	 public function inputteam($id_negara=1) {
+	 	
+        $data['ctrl']['team'] = '';
+        $data['ctrl']['negara'] = '';
+        $data['ctrl']['link'] = '';
+        $data['ctrl']['page'] = 'input';
+        $data['ctrl']['tipe'] = 'Input';
+		$data['ctrl']['negara']=$this->m_bola->negarabyid($id_negara);
+		$data['status']='input';
+        $data['ctrl']['navigation2'] = 'active';
+        $data['ctrl']['navigation1'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+
+        $this->load->view('admin/main', $data);
+    }
 
     public function do_input($id_team=0) {
+    	echo $this->input->post('negara');
+		echo '</br>';
         echo $this->m_bola->get_id_negara($this->input->post('negara'));
         echo '</br>';
         echo $this->input->post('team');
@@ -46,7 +63,8 @@ class Administrator extends CI_Controller {
         $data['id_negara'] = $this->m_bola->get_id_negara($this->input->post('negara'));
         $data['team'] = $this->input->post('team');
         $data['link'] = $this->input->post('link');
-        $data['id_team'] = $this->uri->segment(3);
+        
+		//print_r($data);exit();
         if ($this->input->post('tipe') == 'Input') {
             if ($this->m_bola->input_team($data)) {
                 echo 'sukses input';
@@ -56,12 +74,24 @@ class Administrator extends CI_Controller {
         }
 
         if ($this->input->post('tipe') == 'Edit') {
+        	$data['id_team'] = $this->uri->segment(3);
             if ($this->m_bola->edit_team($data)) {
                 echo 'sukses edit';
             } else 
                 echo 'gagal edit';
             redirect('/administrator/list_team/', 'refresh');
         }
+    }
+
+	public function do_input_negara() {
+		
+		$data['negara']=$this->input->post('negara');
+       
+            if ($this->m_bola->input_negara($data)) {
+                echo 'sukses input';
+            } else
+                echo 'gagal input';
+        redirect('/administrator/list_team/', 'refresh');
     }
 
     public function list_team($id_negara=1) {
@@ -105,7 +135,8 @@ class Administrator extends CI_Controller {
             echo 'gagal delete team';
     }
 
-    public function extratimelist() {
+    public function extratimelist() 
+    {
     	$edited=0;
         $order_by = $this->input->get('order');
         $data['ctrl']['navigation5'] = 'active';
@@ -126,7 +157,8 @@ class Administrator extends CI_Controller {
         $this->load->view('admin/main', $data);
 	}
 
-    public function barang($uri1 = 'movie', $itm = 0) {
+    public function barang($uri1 = 'movie', $itm = 0) 
+    {
         //pagination config
         $jml_row = $this->db->get('barang');
         $config['base_url'] = base_url() . 'administrator/barang/' . $uri1;
@@ -227,21 +259,24 @@ class Administrator extends CI_Controller {
 
     public function summary($page=0) {
         $data['listnegara'] = $this->m_bola->getnegara();
-
+		$tipe='oe';
         $data['ctrl']['page'] = 'summary';
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-        $data['summary'] = $this->m_bola->getallsummary($page);
+        $data['summary'] = $this->m_bola->getallsummary($page,$tipe);
         $data['tanggal'] = $this->m_bola->tanggalsummary($page);
         //$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
 
         $this->load->view('admin/main', $data);
     }
 
-    public function summaryou() {
+    public function summaryou($page=0) {
         $data['ctrl']['page'] = 'summaryou';
+        $tipe='ou';
         $data['ctrl']['navigation7'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation4'] = '';
+        $data['summary'] = $this->m_bola->getallsummary($page,$tipe);
+        $data['tanggal'] = $this->m_bola->tanggalsummary($page);
         $this->load->view('admin/main', $data);
     }
 
@@ -280,6 +315,19 @@ class Administrator extends CI_Controller {
 		$id_negara=$this->input->post('negara');
 		redirect('/administrator/rekap/' . $id_negara, 'refresh');
 	}
+
+	public function inputnegara()
+	{
+		 $data['ctrl']['team'] = '';
+        $data['ctrl']['negara'] = '';
+        $data['ctrl']['link'] = '';
+        $data['ctrl']['page'] = 'inputnegara';
+        $data['ctrl']['navigation1'] = 'active';
+        $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+
+        $this->load->view('admin/main', $data);
+	}
+
 
 	public function pilihrekapou()
 	{

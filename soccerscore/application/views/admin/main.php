@@ -37,7 +37,7 @@
                     <div class="well sidebar-nav" style="background-color: white">
                         <ul class="nav nav-list">
                             <li class="nav-header">Menu</li>
-                            <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/input', 'Input', 'title="Input"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation1']; ?>"><?php echo anchor('administrator/inputnegara', 'Input Negara', 'title="Input Negara"'); ?></li>
                             <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/list_team', 'List Team', 'title="List Team"'); ?></li>
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/rekap', 'Rekap O/E', 'title="Rekap O/E"'); ?></li>
                             <li class="<?php echo $ctrl['navigation6']; ?>"><?php echo anchor('administrator/rekapou', 'Rekap O/U', 'title="Rekap O/U"'); ?></li>

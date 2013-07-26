@@ -50,7 +50,7 @@
 				<tr>
 					<td colspan="4"></td>
 					<td><?php echo anchor('administrator/syncronizrall/'.$id_negara, 'Syncronize All !!', 'title="Syncronize All" class="btn btn-small btn-success"'); ?></td>
-					<td></td>
+					<td><center><a href="<?php echo base_url('index.php/administrator/inputteam/'.$this->uri->segment(3));?>"><i class="icon-plus"></i></a></center></td>
 				</tr>
 			</tbody>
 		</table>

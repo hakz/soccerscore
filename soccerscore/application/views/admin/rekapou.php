@@ -28,6 +28,7 @@
         </thead>
         <tbody>
             <!-- start -->
+             <?php if (!empty($teams)) { ?>
             <?php foreach ($teams as $key => $team) { ?>
                 <tr>
                 <td rowspan="2"><?php echo ++$key?></td>
@@ -44,10 +45,10 @@
                 <?php foreach ($team['rekap'] as $key => $rekap) { ?>
                 	<td><center><?php
                 	if ($rekap['extratime']==0) {
-                		echo (($rekap['score1']+$rekap['score2'])<2.5) ? 'U' : 'O' ; 	
+                		echo $rekap['result2'] ; 
 					} else {
 						echo '<a href="'.base_url('index.php/administrator/extratimelist').'">';
-						echo (($rekap['score1']+$rekap['score2'])<2.5) ? 'U' : 'O' ; 
+						echo $rekap['result2'] ; 
 						echo '</a>';
 					}
 					
@@ -56,7 +57,7 @@
                 <?php } ?>
             </tr>
             <?php }?>
-            
+             <?php }?>
         </tbody>
     </table>
 </div>

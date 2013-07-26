@@ -28,6 +28,9 @@
         </thead>
         <tbody>
             <!-- start -->
+            <?php if (!empty($teams)) { ?>
+                
+           
             <?php foreach ($teams as $key => $team) { ?>
                 <tr>
                 <td rowspan="2"><?php echo ++$key?></td>
@@ -56,7 +59,7 @@
                 <?php } ?>
             </tr>
             <?php }?>
-            
+             <?php } ?>
         </tbody>
     </table>
 </div>
