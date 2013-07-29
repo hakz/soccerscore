@@ -41,7 +41,7 @@
                             <li class="<?php echo $ctrl['navigation2']; ?>"><?php echo anchor('administrator/list_team', 'List Team', 'title="List Team"'); ?></li>
                             <li class="<?php echo $ctrl['navigation3']; ?>"><?php echo anchor('administrator/rekap', 'Rekap O/E', 'title="Rekap O/E"'); ?></li>
                             <li class="<?php echo $ctrl['navigation6']; ?>"><?php echo anchor('administrator/rekapou', 'Rekap O/U', 'title="Rekap O/U"'); ?></li>
-                            <li class="<?php echo $ctrl['navigation5']; ?>"><?php echo anchor('administrator/extratimelist', 'Extra Time', 'title="Extra Time List"'); ?></li>
+                            <li class="<?php echo $ctrl['navigation5']; ?>"><?php echo anchor('administrator/extratimelist', 'Extra Time <span class="badge badge-info">'.$et.'</span>', 'title="Extra Time List"'); ?></li>
                             <li class="<?php echo $ctrl['navigation4']; ?>"><?php echo anchor('administrator/summary/0', 'Summary O/E', 'title="Summary O/E"'); ?></li>
                             <li class="<?php echo $ctrl['navigation7']; ?>"><?php echo anchor('administrator/summaryou/0', 'Summary O/U', 'title="Summary O/U"'); ?></li>
                         </ul>

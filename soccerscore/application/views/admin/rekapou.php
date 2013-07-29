@@ -8,15 +8,18 @@
 </legend>
 <div class="tabbable">
     <form method="POST" action="<?php echo base_url('index.php/administrator/pilihrekapou'); ?>">
-		<select name="negara" id="select_id">
+		<select id="mySelect" name="negara" id="select_id">
 		
 		<?php foreach ($list_negara as $key => $neg) { ?>
 			<option class="sel" <?php echo ($neg['id_negara']==$this->uri->segment(3)) ? 'selected' : '' ; ?>  value="<?php echo $neg['id_negara'] ?>"><?php echo $neg['negara'] ?></option>
 		<?php } ?>
 		</select>
-
-	<button class="btn btn-primary" type="submit">Tampilkan</button>
-		
+		<script>
+		$('#mySelect').change(function(){ 
+	    
+	    	window.location = "<?php echo base_url().'index.php/administrator/rekapou/'?>"+$(this).val();
+		});
+		</script>
 	</form>
     <table class="table table-bordered table-hover">
         <thead>
@@ -26,7 +29,7 @@
                 
             </tr>
         </thead>
-        <tbody>
+        <tbody style="font-size: 9pt">
             <!-- start -->
              <?php if (!empty($teams)) { ?>
             <?php foreach ($teams as $key => $team) { ?>

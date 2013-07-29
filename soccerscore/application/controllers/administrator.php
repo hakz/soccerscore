@@ -19,6 +19,8 @@ class Administrator extends CI_Controller {
         //tes update
         $data['ctrl']['page'] = 'blank';
         $data['ctrl']['navigation1'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
+        $data['et']=sizeof($this->m_bola->extratime_list()) ;
+        
         $this->load->view('admin/main', $data);
     }
 
@@ -30,7 +32,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['tipe'] = 'Input';
         $data['ctrl']['navigation1'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 	
@@ -45,7 +47,7 @@ class Administrator extends CI_Controller {
 		$data['status']='input';
         $data['ctrl']['navigation2'] = 'active';
         $data['ctrl']['navigation1'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 
@@ -59,7 +61,7 @@ class Administrator extends CI_Controller {
         echo $this->input->post('link');
         echo '</br>';
         echo $id_team;
-		
+		$data['et']=sizeof($this->m_bola->extratime_list()) ;
         $data['id_negara'] = $this->m_bola->get_id_negara($this->input->post('negara'));
         $data['team'] = $this->input->post('team');
         $data['link'] = $this->input->post('link');
@@ -101,6 +103,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['list_team'] = $this->m_bola->list_team($order_by, $id_negara);
 		$data['list_negara'] = $this->m_bola->getnegara();
+		$data['et']=sizeof($this->m_bola->extratime_list()) ;
 		$data['id_negara'] = $id_negara;
 		
         $this->load->view('admin/main', $data);
@@ -121,6 +124,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'input';
         $data['ctrl']['tipe'] = 'Edit';
         $data['ctrl']['navigation2'] = 'active';
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $this->load->view('admin/main', $data);
     }
@@ -143,6 +147,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'extratimelist';
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['extratime'] = $this->m_bola->extratime_list($order_by,$edited);
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 	
@@ -154,6 +159,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'extratimeedited';
         $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation2'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
         $data['extratime'] = $this->m_bola->extratime_list($order_by,$edited);
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
 	}
 
@@ -177,7 +183,7 @@ class Administrator extends CI_Controller {
 
         $data['ctrl']['list_barang'] = $list_barang;
         $data['ctrl']['page'] = $page;
-
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $data['ctrl']['navigation3'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation4'] = '';
         //$data['ctrl']['halaman'] = $this -> pagination -> create_links();
@@ -193,6 +199,7 @@ class Administrator extends CI_Controller {
             $list_quality = $this->m_barang->list_quality();
             $list_negara = $this->m_barang->list_negara();
         }
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $data['ctrl']['page'] = $page;
         $data['ctrl']['quality'] = $list_quality;
         $data['ctrl']['negara'] = $list_negara;
@@ -258,25 +265,36 @@ class Administrator extends CI_Controller {
     }
 
     public function summary($page=0) {
+    	$f=$this->input->get('f');
+		if ($f==0){
+			$f=2;
+		}
         $data['listnegara'] = $this->m_bola->getnegara();
 		$tipe='oe';
         $data['ctrl']['page'] = 'summary';
+		$data['f'] = $f;
         $data['ctrl']['navigation4'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-        $data['summary'] = $this->m_bola->getallsummary($page,$tipe);
+        $data['summary'] = $this->m_bola->getallsummary($page,$tipe,$f);
         $data['tanggal'] = $this->m_bola->tanggalsummary($page);
         //$data['jumlahperulangan']=$this->getjumlahperulangan($data['summary']);
-
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 
     public function summaryou($page=0) {
+    	$f=$this->input->get('f');
+		if ($f==0){
+			$f=2;
+		}
         $data['ctrl']['page'] = 'summaryou';
         $tipe='ou';
+		$data['f'] = $f;$data['f'] = $f;
         $data['ctrl']['navigation7'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation1'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation4'] = '';
-        $data['summary'] = $this->m_bola->getallsummary($page,$tipe);
+        $data['summary'] = $this->m_bola->getallsummary($page,$tipe,$f);
         $data['tanggal'] = $this->m_bola->tanggalsummary($page);
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 
@@ -289,7 +307,7 @@ class Administrator extends CI_Controller {
 		
 		$data['list_negara'] = $this->m_bola->getnegara();
 		//$data['id_negara'] = $id_negara;
-		
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
 		$order=$this->input->get('order');
 		
 		if(empty($order))
@@ -324,7 +342,7 @@ class Administrator extends CI_Controller {
         $data['ctrl']['page'] = 'inputnegara';
         $data['ctrl']['navigation1'] = 'active';
         $data['ctrl']['navigation2'] = $data['ctrl']['navigation3'] = $data['ctrl']['navigation4'] = $data['ctrl']['navigation5'] = $data['ctrl']['navigation6'] = $data['ctrl']['navigation7'] = '';
-
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
 	}
 
@@ -357,6 +375,7 @@ class Administrator extends CI_Controller {
         // $this->pagination->initialize($config);
         // $data['halaman'] = $this->pagination->create_links();
         $data['halaman'] = '';
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
         $this->load->view('admin/main', $data);
     }
 
@@ -439,6 +458,7 @@ class Administrator extends CI_Controller {
 
 	public function editteam($id_team=0)
 	{
+		 $data['et']=sizeof($this->m_bola->extratime_list()) ;
 		$data['page']='edit_team';
 		$this->load->view('main',$data);
 	}
@@ -448,10 +468,10 @@ class Administrator extends CI_Controller {
         $this->load->model('m_dom');
         foreach ($data as $m) {
             $isedited = $this->m_dom->cekedited($m);
-
+			
             if ($this->m_dom->cekdataisexist($m['id_team'], $m['date']) && $isedited != 1) {
                $this->m_dom->updatedom($m);
-            } else {
+            } else if($isedited != 1){
               $this->m_dom->insertdom($m);
             }
         }

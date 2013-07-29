@@ -147,16 +147,16 @@ class m_bola extends CI_Model {
         $this->db->where('id_team', $id_team);
         $this->db->where('status_tanding', '1');
         $this->db->order_by('date', 'desc');
-        $this->db->limit(15);
+        $this->db->limit(20);
         return $this->db->get('dom')->result_array();
     }
 
-    function getallsummary($page=0, $tipe='oe') {
+    function getallsummary($page=0, $tipe='oe' ,$f=2) {
         $negara = $this->getnegara();
         foreach ($negara as $key => $n) {
             $data[$key]['id_negara'] = $n['id_negara'];
             $data[$key]['negara'] = $n['negara'];
-            $data[$key]['row'] = $this->getsummary($n['id_negara'],$page,$tipe);
+            $data[$key]['row'] = $this->getsummary($n['id_negara'],$page,$tipe,$f);
         }
 
         return $data;
@@ -177,7 +177,7 @@ class m_bola extends CI_Model {
         return $data;
     }
 
-    function getsummary($id_negara = 5,$page=0,$tipe) {
+    function getsummary($id_negara = 5,$page=0,$tipe, $f=2) {
         //1. get hari ini
         //1. get hari ini+1
         //1. get hari ini+2
@@ -185,13 +185,13 @@ class m_bola extends CI_Model {
         $kurang=$page*7;	
         $date = date('Y-m-d');
 		$date= date('Y-m-d', strtotime('+'.$kurang.' day', strtotime($date)));
-        $sum[0] = $this->getsummarybydate(date('Y-m-d', strtotime('-3 day', strtotime($date))), $id_negara, $tipe);
-        $sum[1] = $this->getsummarybydate(date('Y-m-d', strtotime('-2 day', strtotime($date))), $id_negara, $tipe);
-        $sum[2] = $this->getsummarybydate(date('Y-m-d', strtotime('-1 day', strtotime($date))), $id_negara, $tipe);
-        $sum[3] = $this->getsummarybydate(date('Y-m-d', strtotime('+0 day', strtotime($date))), $id_negara, $tipe);
-        $sum[4] = $this->getsummarybydate(date('Y-m-d', strtotime('+1 day', strtotime($date))), $id_negara, $tipe);
-        $sum[5] = $this->getsummarybydate(date('Y-m-d', strtotime('+2 day', strtotime($date))), $id_negara, $tipe);
-        $sum[6] = $this->getsummarybydate(date('Y-m-d', strtotime('+3 day', strtotime($date))), $id_negara, $tipe);
+        $sum[0] = $this->getsummarybydate(date('Y-m-d', strtotime('-3 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[1] = $this->getsummarybydate(date('Y-m-d', strtotime('-2 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[2] = $this->getsummarybydate(date('Y-m-d', strtotime('-1 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[3] = $this->getsummarybydate(date('Y-m-d', strtotime('+0 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[4] = $this->getsummarybydate(date('Y-m-d', strtotime('+1 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[5] = $this->getsummarybydate(date('Y-m-d', strtotime('+2 day', strtotime($date))), $id_negara, $tipe,$f);
+        $sum[6] = $this->getsummarybydate(date('Y-m-d', strtotime('+3 day', strtotime($date))), $id_negara, $tipe,$f);
 
         $data;
         //echo '<pre>';
@@ -222,7 +222,7 @@ class m_bola extends CI_Model {
         return $sum;
     }
 
-    function getsummarybydate($date = '', $id_negara = 0, $tipe) {
+    function getsummarybydate($date = '', $id_negara = 0, $tipe,$f=2) {
 
         $this->db->where('date', $date);
         //$this->db->where('status_tanding', 0);
@@ -238,7 +238,7 @@ class m_bola extends CI_Model {
 
         foreach ($res as $key => $r) {
 			$r['sum']=$this->isandalan($r['id_team'], $date,$tipe);
-            if ($r['sum']>=2) {
+            if ($r['sum']>=$f) {
 				
                 $data[] = $r;
             }
@@ -286,6 +286,8 @@ class m_bola extends CI_Model {
         $this->db->trans_complete();
         return $this->db->trans_status();
     }
+	
+	
 	
 }
 

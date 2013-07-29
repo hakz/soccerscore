@@ -6,9 +6,19 @@
 <legend>
 	SUMMARY O/E
 </legend>
+<select id="mySelect">
+	<option value="2" <?php echo ($f==2) ? 'selected' : '' ;?>>2</option>
+	<option value="3" <?php echo ($f==3) ? 'selected' : '' ;?>>3</option>
+	<option value="4" <?php echo ($f==4) ? 'selected' : '' ;?>>4</option>
+</select></br>
+<script>
+	$('#mySelect').change(function(){ 
+    
+    window.location = "<?php echo base_url().'index.php/administrator/summary/'.$this->uri->segment(3).'?f=' ?>"+$(this).val();
+});
+</script>
 <a href="<?php echo base_url('index.php/administrator/summary/'.($this->uri->segment(3)-1));?>">Prev</a> / <a href="<?php echo base_url('index.php/administrator/summary/'.($this->uri->segment(3)+1));?>">Next</a>
 (<?php echo $tanggal[0].' - '.$tanggal[6] ?>)</br></br>
-
 
 <div class="row-fluid">
 	 
